@@ -40,7 +40,7 @@ Access to the API is granted by providing the proper `Authorization` _HTTP heade
 | Header          |        Type         | Required | Default | Description                                           |
 | --------------- | :-----------------: | :------: | :-----: | ----------------------------------------------------- |
 | `Authorization` |      _string_       |   Yes    |    ~    | Your JWT with the Bearer prefix (e.g. `Bearer <JWT>`) |
-| `X-RPL-Mode`    | _integer_ (`0`/`1`) |    No    |   `0`   | Mode of request live or a test (`0`-test/`1`-live)    |
+| `RPL-X-Mode`    | _integer_ (`0`/`1`) |    No    |   `0`   | Mode of request live or a test (`0`-test/`1`-live)    |
 
 <br/>
 
@@ -60,22 +60,22 @@ Before replacement:
 
 ```json
 {
-  "Header": {
-    "OrderPONum": "PO0061",
-    "Customer": {
-      "AccountName": "Richard Friend",
-      "Phone": 1111111111,
-      "Email": "support@domain.com"
+  "header": {
+    "orderPONum": "PO0061",
+    "customer": {
+      "accountName": "Richard Friend",
+      "phone": 1111111111,
+      "email": "support@domain.com"
     },
-    "Shipping": {
-      "CustomerName": "Richard Person",
-      "Address1": "123 Street Address",
-      "Address2": "Apt #6",
-      "City": "Big City",
-      "State": "CA",
-      "PostalCode": "11111",
-      "Country": "USA",
-      "Phone": 1111111111
+    "shipping": {
+      "customerName": "Richard Person",
+      "address1": "123 Street Address",
+      "address2": "Apt #6",
+      "city": "Big City",
+      "state": "CA",
+      "postalCode": "11111",
+      "country": "USA",
+      "phone": 1111111111
     }
   }
 }
@@ -84,26 +84,7 @@ Before replacement:
 After replacement:
 
 ```json
-{
-  "Header": {
-    "OrderPONum": "PO0061",
-    "Customer": {
-      "AccountName": "RichardFriend",
-      "Phone": 1111111111,
-      "Email": "support@domain.com"
-    },
-    "Shipping": {
-      "CustomerName": "RichardPerson",
-      "Address1": "123StreetAddress",
-      "Address2": "Apt#6",
-      "City": "BigCity",
-      "State": "CA",
-      "PostalCode": "11111",
-      "Country": "USA",
-      "Phone": 1111111111
-    }
-  }
-}
+[{"header":{"orderPONum":"PO0061","customer":{"accountName":"RichardPartner","phone":1111111111,"email":"support@domain.com"},"shipping":{"customerName":"PartnerCustomer","address1":"123StreetAddress","address2":"Apt#6","city":"SaltLakeCity","state":"Utah","postalCode":"11111","country":"USA","phone":1111111111,"shippingMethod":"SPSSP"}},"items":[{"itemCode":"CP1010P","quantity":1,"iPath":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]},{"itemCode":"CP1020D","quantity":1,"iPath":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","cropDetails":"[0.2,0.1,0.95,0.85]","orientation":90},{"itemCode":"CP1010P","quantity":1,"iPath":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]}],"options":[{"itemCode":"SPCC","quantity":2},{"itemCode":"SPEP"}]
 ```
 
 > :warning: The replaced version of the payload should only be used to generate the MD5 hash, then discarded
@@ -124,96 +105,96 @@ _object_
 
 | Field                                                            |   Type    | Required | Limits  | Description           |
 | ---------------------------------------------------------------- | :-------: | :------: | :-----: | --------------------- |
-| `Header`                                                         | _object_  |   Yes    |         | Order header          |
-| &nbsp;&nbsp;&nbsp;&nbsp;`OrderPONum`                             | _string_  |   Yes    | max 20  | PO Number             |
-| &nbsp;&nbsp;&nbsp;&nbsp;`OrderReference`                         | _string_  |    No    | max 50  | Reference ID          |
-| &nbsp;&nbsp;&nbsp;&nbsp;`OrderPromoCode`                         | _string_  |    No    | max 50  | Promotion Code        |
-| &nbsp;&nbsp;&nbsp;&nbsp;`Customer`                               | _object_  |   Yes    |         | Customer              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`AccountName`    | _string_  |   Yes    | max 50  | Account Name          |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Phone`          | _integer_ |   Yes    | max 18  | Account Phone Number  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Email`          | _string_  |   Yes    | max 100 | Account Email Address |
-| &nbsp;&nbsp;`Shipping`                                           | _object_  |   Yes    |         | Moo                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`CustomerName`   | _string_  |   Yes    | max 100 | Shipping Name         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Address1`       | _string_  |   Yes    | max 100 | Shipping Address 1    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Address2`       | _string_  |   Yes    | max 100 | Shipping Address 2    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`City`           | _string_  |   Yes    | max 50  | Shipping City         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`State`          | _string_  |   Yes    | max 50  | Shipping State        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`PostalCode`     | _string_  |   Yes    | max 16  | Shipping Postal Code  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Country`        | _string_  |   Yes    | max 50  | Shipping Country      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Phone`          | _integer_ |   Yes    | max 18  | Shipping Phone Number |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ShippingMethod` | _string_  |   Yes    | max 20  | Shipping Method       |
-| `Items`                                                          |  _array_  |   Yes    |         | Items                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |   Yes    |         | Moo                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ItemCode`       | _string_  |   Yes    | max 50  | Item Code             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Quantity`       | _integer_ |   Yes    |  max 3  | Item Quantity         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`IPath`          | _string_  |    No    |   URL   | Image URL             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Options`        | _string_  |    No    |         | Item Options          |
-| `Options`                                                        |  _array_  |    No    |         | Options               |
-| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |   Moo   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ItemCode`       | _string_  |   Yes    |         | Item Code             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Quantity`       | _integer_ |    No    |         | Item Quantity         |
+| `header`                                                         | _object_  |   Yes    |         | Order header          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`orderPONum`                             | _string_  |   Yes    | max 20  | PO Number             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`orderReference`                         | _string_  |    No    | max 50  | Reference ID          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`orderPromoCode`                         | _string_  |    No    | max 50  | Promotion Code        |
+| &nbsp;&nbsp;&nbsp;&nbsp;`customer`                               | _object_  |   Yes    |         | Customer              |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`accountName`    | _string_  |   Yes    | max 50  | Account Name          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`phone`          | _integer_ |   Yes    | max 18  | Account Phone Number  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`email`          | _string_  |   Yes    | max 100 | Account Email Address |
+| &nbsp;&nbsp;`shipping`                                           | _object_  |   Yes    |         | Moo                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`customerName`   | _string_  |   Yes    | max 100 | Shipping Name         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`address1`       | _string_  |   Yes    | max 100 | Shipping Address 1    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`address2`       | _string_  |   Yes    | max 100 | Shipping Address 2    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`city`           | _string_  |   Yes    | max 50  | Shipping City         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`state`          | _string_  |   Yes    | max 50  | Shipping State        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`postalCode`     | _string_  |   Yes    | max 16  | Shipping Postal Code  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`country`        | _string_  |   Yes    | max 50  | Shipping Country      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`phone`          | _integer_ |   Yes    | max 18  | Shipping Phone Number |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`shippingMethod` | _string_  |   Yes    | max 20  | Shipping Method       |
+| `items`                                                          |  _array_  |   Yes    |         | Items                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |   Yes    |         |                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`itemCode`       | _string_  |   Yes    | max 50  | Item Code             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |   Yes    |  max 3  | Item Quantity         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`iPath`          | _string_  |    No    |   URL   | Image URL             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _string_  |    No    |         | Item Options          |
+| `options`                                                        |  _array_  |    No    |         | Options               |
+| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |   Moo   |						|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`itemCode`       | _string_  |   Yes    |         | Item Code             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |         | Item Quantity         |
 
 ```JSON
 [
-  {
-    "Header": {
-      "OrderPONum": "PO0061",
-      "Customer": {
-        "AccountName": "Richard Partner",
-        "Phone": 1111111111,
-        "Email": "support@domain.com"
-      },
-      "Shipping": {
-        "CustomerName": "Partner Customer",
-        "Address1": "123 Street Address",
-        "Address2": "Apt #6",
-        "City": "Salt Lake City",
-        "State": "Utah",
-        "PostalCode": "11111",
-        "Country": "USA",
-        "Phone": 1111111111,
-        "ShippingMethod": "SPSSP"
-      }
-    },
-	"Items": [
-		{
-			"ItemCode": "CP1010P",
-			"Quantity": 1,
-			"IPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
-			"Options": [
-			{
-				"ItemCode": "MT1020S2"
-			}
-			]
+  	{
+		"header": {
+		"orderPoNum": "PO0061",
+		"customer": {
+			"accountName": "Richard Partner",
+			"phone": 1111111111,
+			"email": "support@domain.com"
 		},
-		{
-			"ItemCode": "CP1020D",
-			"Quantity": 1,
-			"IPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
-			"CropDetails": "[0.2, 0.1, 0.95, 0.85]",
-			"Orientation": 90
-		},
-		{
-			"ItemCode": "CP1010P",
-			"Quantity": 1,
-			"IPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
-			"Options": [
-			{
-				"ItemCode": "MT1020S2"
-			}
-			]
+		"shipping": {
+			"customerName": "Partner Customer",
+			"address1": "123 Street Address",
+			"address2": "Apt #6",
+			"city": "Salt Lake City",
+			"state": "Utah",
+			"postalCode": "11111",
+			"country": "USA",
+			"phone": 1111111111,
+			"shippingMethod": "SPSSP"
 		}
-	],
-	"Options": [
-		{
-			"ItemCode": "SPCC",
-			"Quantity": 2
 		},
-		{
-			"ItemCode": "SPEP"
-		}
-	]
-  }
+		"items": [
+			{
+				"itemCode": "CP1010P",
+				"quantity": 1,
+				"iPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+				"options": [
+					{
+						"itemCode": "MT1020S2"
+					}
+				]
+			},
+			{
+				"itemCode": "CP1020D",
+				"quantity": 1,
+				"iPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+				"cropDetails": "[0.2, 0.1, 0.95, 0.85]",
+				"orientation": 90
+			},
+			{
+				"itemCode": "CP1010P",
+				"quantity": 1,
+				"iPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+				"options": [
+					{
+						"itemCode": "MT1020S2"
+					}
+				]
+			}
+		],
+		"options": [
+			{
+				"itemCode": "SPCC",
+				"quantity": 2
+			},
+			{
+				"itemCode": "SPEP"
+			}
+		]
+  	}
 ]
 ```
 
@@ -225,7 +206,7 @@ All responses from the service will be formatted as valid JSON.
 
 The response will include an `errors` array containing any errors which occurred during the processing of your request, and an `items` array containing details of each item in your request (unless a Service Error).
 
-All response payloads, no matter the type, also include a `mode` boolean integer field indicating if the request payload was processed in a test or live mode.
+All response payloads except Service Errors (see below), also include a `mode` boolean integer field indicating if the request payload was processed in a test or live mode.
 
 ### Service Errors
 
@@ -238,7 +219,7 @@ The payload is made up of an `errors` array containing a message line for each e
 _object_
 Field | Type | Description
 ------|:----:|------------
-`errors` | _string_ | Message of the error which occurred
+`errors` | _array_[_string_] | Messages of the error which occurred
 
 #### 401 Unauthorized
 
@@ -246,7 +227,7 @@ HTTP Code: `401`
 
 ```JSON
 {
-  "errors": [ "Authorization failure" ]
+	"errors": [ "Authorization failure" ]
 }
 ```
 
@@ -256,7 +237,7 @@ HTTP Code: `422`
 
 ```JSON
 {
-  "errors": [ "Malformed payload" ]
+	"errors": [ "Malformed payload" ]
 }
 ```
 
@@ -266,7 +247,7 @@ HTTP Code: `500` :scream:
 
 ```JSON
 {
-  "errors": [ "Unknown error" ]
+	"errors": [ "Unknown error" ]
 }
 ```
 
@@ -290,21 +271,21 @@ HTTP Code: `200` (Success)
 
 ```JSON
 {
-  "errors": [],
-  "items": [
-    {
-      "index": 0,
-      "order_number": "RP9876",
-      "accepted": 1,
-      "created_at": "2019-11-27T16:26:59.000000Z",
-    },
-    {
-      "index": 1,
-      "order_number": "RP9879",
-      "accepted": 1,
-      "created_at": "2019-11-27T16:26:59.000000Z",
-    }
-  ]
+	"errors": [],
+	"items": [
+		{
+			"index": 0,
+			"order_number": "RP9876",
+			"accepted": 1,
+			"created_at": "2019-11-27T16:26:59.000000Z",
+		},
+		{
+			"index": 1,
+			"order_number": "RP9879",
+			"accepted": 1,
+			"created_at": "2019-11-27T16:26:59.000000Z",
+		}
+	]
 }
 ```
 
@@ -329,14 +310,14 @@ PUT:
 
 ```JSON
 [
-  {
-    "order_number": "RP9090",
-    "tracking_number": 123456789
-  },
-  {
-    "order_number": "",
-    "tracking_number": ""
-  }
+	{
+		"order_number": "RP9090",
+		"tracking_number": 123456789
+	},
+	{
+		"order_number": "",
+		"tracking_number": ""
+	}
 ]
 ```
 
@@ -344,36 +325,36 @@ HTTP Code: `200`
 
 ```JSON
 {
-  "errors": [
-    {
-      "index": 0,
-      "order_number": "RP9090",
-      "messages": [
-        "Required field 'tracking_number' is invalid"
-      ]
-    },
-    {
-      "index": 1,
-      "order_number": null,
-      "messages": [
-        "Required field 'order_number' is empty",
-        "Required field 'tracking_number' is empty"
-      ]
-    }
-  ],
-  "items": [
-    {
-      "index": 0,
-      "order_number": "RP9090",
-      "accepted": 0,
-      "created_at": null,
-    },
-    {
-      "index": 1,
-      "order_number": null,
-      "accepted": 0,
-      "created_at": null,
-    }
-  ]
+	"errors": [
+		{
+			"index": 0,
+			"order_number": "RP9090",
+			"messages": [
+				"Required field 'tracking_number' is invalid"
+			]
+		},
+		{
+			"index": 1,
+			"order_number": null,
+			"messages": [
+				"Required field 'order_number' is empty",
+				"Required field 'tracking_number' is empty"
+			]
+		}
+	],
+	"items": [
+		{
+			"index": 0,
+			"order_number": "RP9090",
+			"accepted": 0,
+			"created_at": null,
+		},
+		{
+			"index": 1,
+			"order_number": null,
+			"accepted": 0,
+			"created_at": null,
+		}
+	]
 }
 ```
