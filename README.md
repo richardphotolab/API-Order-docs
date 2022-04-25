@@ -12,7 +12,7 @@
 - [Payload](#payload)
 - [Responses](#responses)
   - [Service Errors](#service-errors)
-  - [Items](#items)
+  - [Orders](#orders)
   - [Errors](#errors)
 
 ## Overview
@@ -255,14 +255,14 @@ HTTP Code: `500` :scream:
 
 <br/>
 
-### Items
+### Orders
 
 _object_
 Field | Type | Description
 ------|:----:|------------
 `index` | _integer_ | Internally generated reference for each item
 `order_number` | _string_ \| _null_ | Provided order number for this item
-`accepted` | _integer_ (`0`/`1`) | Value representing if the update was accepted
+`accepted` | _integer_ (`0`/`1`) | Value representing if the order was accepted
 `created_at` | _string_ \| _null_ | Full string date and time in UTC when the order was accepted
 
 #### 200 Created
@@ -272,7 +272,7 @@ HTTP Code: `200` (Success)
 ```JSON
 {
 	"errors": [],
-	"items": [
+	"orders": [
 		{
 			"index": 0,
 			"order_number": "RP9876",
@@ -342,7 +342,7 @@ HTTP Code: `200`
 			]
 		}
 	],
-	"items": [
+	"orders": [
 		{
 			"index": 0,
 			"order_number": "RP9090",
