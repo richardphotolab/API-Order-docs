@@ -61,7 +61,7 @@ Before replacement:
 ```json
 {
   "header": {
-    "orderPONum": "PO0061",
+    "orderNumber": "PO0061",
     "customer": {
       "accountName": "Richard Friend",
       "phone": 1111111111,
@@ -106,7 +106,8 @@ _object_
 | Field                                                            |   Type    | Required | Limits  | Description           |
 | ---------------------------------------------------------------- | :-------: | :------: | :-----: | --------------------- |
 | `header`                                                         | _object_  |   Yes    |         | Order header          |
-| &nbsp;&nbsp;&nbsp;&nbsp;`orderPONum`                             | _string_  |   Yes    | max 20  | PO Number             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`orderNumber`                            | _string_  |   Yes    | max 20  | Order Number          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId`                               | _string_  |    No    | max 80  | Unique Identifier     |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderReference`                         | _string_  |    No    | max 50  | Reference ID          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderPromoCode`                         | _string_  |    No    | max 50  | Promotion Code        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`customer`                               | _object_  |   Yes    |         | Customer              |
