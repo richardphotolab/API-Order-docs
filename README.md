@@ -84,7 +84,7 @@ Before replacement:
 After replacement:
 
 ```json
-[{"header":{"orderPONum":"PO0061","customer":{"accountName":"RichardPartner","phone":1111111111,"email":"support@domain.com"},"shipping":{"customerName":"PartnerCustomer","address1":"123StreetAddress","address2":"Apt#6","city":"SaltLakeCity","state":"Utah","postalCode":"11111","country":"USA","phone":1111111111,"shippingMethod":"SPSSP"}},"items":[{"itemCode":"CP1010P","quantity":1,"iPath":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]},{"itemCode":"CP1020D","quantity":1,"iPath":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","cropDetails":"[0.2,0.1,0.95,0.85]","orientation":90},{"itemCode":"CP1010P","quantity":1,"iPath":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]}],"options":[{"itemCode":"SPCC","quantity":2},{"itemCode":"SPEP"}]
+[{"header":{"orderPONum":"PO0061","customer":{"accountName":"RichardPartner","phone":1111111111,"email":"support@domain.com"},"shipping":{"customerName":"PartnerCustomer","address1":"123StreetAddress","address2":"Apt#6","city":"SaltLakeCity","state":"Utah","postalCode":"11111","country":"USA","phone":1111111111,"shippingMethod":"SPSSP"}},"items":[{"itemCode":"CP1010P","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]},{"itemCode":"CP1020D","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","cropDetails":"[0.2,0.1,0.95,0.85]","orientation":90},{"itemCode":"CP1010P","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]}],"options":[{"itemCode":"SPCC","quantity":2},{"itemCode":"SPEP"}]
 ```
 
 > :warning: The replaced version of the payload should only be used to generate the MD5 hash, then discarded
@@ -128,7 +128,7 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |   Yes    |         |                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`itemCode`       | _string_  |   Yes    | max 50  | Item Code             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |   Yes    |  max 3  | Item Quantity         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`iPath`          | _string_  |    No    |   URL   | Image URL             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`sourceImage`    | _string_  |    No    |   URL   | Image URL             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _string_  |    No    |         | Item Options          |
 | `options`                                                        |  _array_  |    No    |         | Options               |
 | &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |   Moo   |						|
@@ -161,7 +161,7 @@ _object_
 			{
 				"itemCode": "CP1010P",
 				"quantity": 1,
-				"iPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
 				"options": [
 					{
 						"itemCode": "MT1020S2"
@@ -171,14 +171,14 @@ _object_
 			{
 				"itemCode": "CP1020D",
 				"quantity": 1,
-				"iPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
 				"cropDetails": "[0.2, 0.1, 0.95, 0.85]",
 				"orientation": 90
 			},
 			{
 				"itemCode": "CP1010P",
 				"quantity": 1,
-				"iPath": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
 				"options": [
 					{
 						"itemCode": "MT1020S2"
