@@ -126,14 +126,16 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`shippingMethod` | _string_  |   Yes    | max 20  | Shipping Method       |
 | `items`                                                          |  _array_  |   Yes    |         | Items                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |   Yes    |         |                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`itemCode`       | _string_  |   Yes    | max 50  | Item Code             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`       | _string_  |   Yes    | max 50  | Item Code             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |   Yes    |  max 3  | Item Quantity         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`sourceImage`    | _string_  |    No    |   URL   | Image URL             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _string_  |    No    |         | Item Options          |
-| `options`                                                        |  _array_  |    No    |         | Options               |
-| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |   Moo   |						|
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`itemCode`       | _string_  |   Yes    |         | Item Code             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |         | Item Quantity         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`sourceImage`    | _string_  |    No    |   URL   | Source Image URL      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _object_  |    No    |         | Item Options          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_ | _object_  |   No    |      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code` | _string_ | Yes |    | Option Code   |
+| `options`                                                        | _array_ |    No    |         | Options               |
+| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |         |						|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`           | _string_  |   Yes    |         | Option Code             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |         | Option Quantity         |
 
 ```JSON
 [
@@ -159,40 +161,40 @@ _object_
 		},
 		"items": [
 			{
-				"itemCode": "CP1010P",
+				"code": "CP1010P",
 				"quantity": 1,
 				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
 				"options": [
 					{
-						"itemCode": "MT1020S2"
+						"code": "MT1020S2"
 					}
 				]
 			},
 			{
-				"itemCode": "CP1020D",
+				"code": "CP1020D",
 				"quantity": 1,
 				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
 				"cropDetails": "[0.2, 0.1, 0.95, 0.85]",
 				"orientation": 90
 			},
 			{
-				"itemCode": "CP1010P",
+				"code": "CP1010P",
 				"quantity": 1,
 				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
 				"options": [
 					{
-						"itemCode": "MT1020S2"
+						"code": "MT1020S2"
 					}
 				]
 			}
 		],
 		"options": [
 			{
-				"itemCode": "SPCC",
+				"code": "SPCC",
 				"quantity": 2
 			},
 			{
-				"itemCode": "SPEP"
+				"code": "SPEP"
 			}
 		]
   	}
@@ -220,7 +222,7 @@ The payload is made up of an `errors` array containing a message line for each e
 _object_
 Field | Type | Description
 ------|:----:|------------
-`errors` | _array_[_string_] | Messages of the error which occurred
+`errors` | _array_<_string_> | Messages of the error which occurred
 
 #### 401 Unauthorized
 
@@ -262,9 +264,10 @@ _object_
 Field | Type | Description
 ------|:----:|------------
 `index` | _integer_ | Internally generated reference for each item
-`order_number` | _string_ \| _null_ | Provided order number for this item
-`accepted` | _integer_ (`0`/`1`) | Value representing if the order was accepted
-`created_at` | _string_ \| _null_ | Full string date and time in UTC when the order was accepted
+`orderNumber` | _string_ \| _null_ | Provided order number for this item
+`accepted` | _integer_ (`0`/`1`) | Value representing if the order was accepted/successful
+`createdAt` | _string_ \| _null_ | Full string date and time in UTC when the order was accepted
+`errors` | _array_<_string_> | Error messages in the event that the order count not be processed
 
 #### 200 Created
 
@@ -276,85 +279,27 @@ HTTP Code: `200` (Success)
 	"orders": [
 		{
 			"index": 0,
-			"order_number": "RP9876",
+			"orderNumber": "RP9876",
 			"accepted": 1,
-			"created_at": "2019-11-27T16:26:59.000000Z",
+			"createdAt": "2019-11-27T16:26:59.000000Z",
+			"errors": []
 		},
 		{
 			"index": 1,
-			"order_number": "RP9879",
-			"accepted": 1,
-			"created_at": "2019-11-27T16:26:59.000000Z",
-		}
-	]
-}
-```
-
-<br/>
-
-### Errors
-
-Errors occur at the item level and are reported for each item individually. If a problem occurs with an item, a corresponding error object with matching index will be populated in the errors array.
-
-_object_
-Field | Type | Description
-------|:----:|------------
-`index` | _integer_ | Internal reference for each item (_in the event of a malformed payload_)
-`order_number` | _string_ \| _null_ | Provided order number for this item
-`messages` | _string_ | Messages for the errors which occurred
-
-> :warning: Item level errors do not modify the return http code.
-
-#### Example
-
-PUT:
-
-```JSON
-[
-	{
-		"order_number": "RP9090",
-		"tracking_number": 123456789
-	},
-	{
-		"order_number": "",
-		"tracking_number": ""
-	}
-]
-```
-
-HTTP Code: `200`
-
-```JSON
-{
-	"errors": [
-		{
-			"index": 0,
-			"order_number": "RP9090",
-			"messages": [
-				"Required field 'tracking_number' is invalid"
+			"orderNumber": "RP9879",
+			"accepted": 0,
+			"createdAt": "2019-11-27T16:27:12.000000Z",
+			"errors": [
+				"The header.customer.email must be a valid email address",
+				"The items.1.quantity field is required"
 			]
 		},
 		{
-			"index": 1,
-			"order_number": null,
-			"messages": [
-				"Required field 'order_number' is empty",
-				"Required field 'tracking_number' is empty"
-			]
-		}
-	],
-	"orders": [
-		{
-			"index": 0,
-			"order_number": "RP9090",
-			"accepted": 0,
-			"created_at": null,
-		},
-		{
-			"index": 1,
-			"order_number": null,
-			"accepted": 0,
-			"created_at": null,
+			"index": 2,
+			"orderNumber": "RP9880",
+			"accepted": 1,
+			"createdAt": "2019-11-27T16:27:32.000000Z",
+			"errors": []
 		}
 	]
 }
