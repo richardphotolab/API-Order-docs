@@ -31,15 +31,15 @@ A valid request is made up of proper http headers, and a payload formatted in va
 
 ## Authorization
 
-Access to the API is granted by providing the proper `Authorization` _HTTP header_ containing your token **[JWT](https://jwt.io/introduction/)**.
+Access to the API is granted by providing the proper `Authorization` _HTTP header_ containing your token.
 
-> :warning: Your unique JWT and the endpoint URL are provided by your Richard technical contact
+> :warning: Your unique token and the endpoint URL are provided by your Richard technical contact
 
 ### Headers
 
 | Header          |        Type         | Required | Default | Description                                           |
 | --------------- | :-----------------: | :------: | :-----: | ----------------------------------------------------- |
-| `Authorization` |      _string_       |   Yes    |    ~    | Your JWT with the Bearer prefix (e.g. `Bearer <JWT>`) |
+| `Authorization` |      _string_       |   Yes    |    ~    | Your token with the Bearer prefix (e.g. `Bearer <token>`) |
 | `RPL-X-Mode`    | _integer_ (`0`/`1`) |    No    |   `0`   | Mode of request live or a test (`0`-test/`1`-live)    |
 
 <br/>
