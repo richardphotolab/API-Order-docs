@@ -213,7 +213,7 @@ _object_
 
 All responses from the service will be formatted as valid JSON.
 
-The response will include an `errors` array containing any errors which occurred during the processing of your request, and an `items` array containing details of each item in your request (unless a Service Error).
+The response will include an `errors` array containing any errors which occurred during the processing of your request, and an `orders` array containing details of each item in your request (unless a Service Error).
 
 All response payloads except Service Errors (see below), also include a `mode` boolean integer field indicating if the request payload was processed in a test or live mode.
 
