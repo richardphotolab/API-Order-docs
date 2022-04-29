@@ -97,26 +97,26 @@ After replacement:
 | ----------------------- | :------: | :------: | :-----: | ---------------------------------------------------------- |
 | `RPL-X-PayloadChecksum` | _string_ |   Yes    |    ~    | The request hash (e.g. `4730815c370745ca3408d6211273f698`) |
 
-> :warning: Because this hash is used only for payload verification and not authorization, the known security issues with MD5 are of negligible concern
+> :warning: Because this hash is used only for payload verification and not authorization, the known security issues with MD5 are of no concern
 
 ### Requests
 
-**Method:** `PUT`
+**Method:** `POST`
 
 _object_
 
 | Field                                                            |   Type    | Required | Limits  | Description           |
 | ---------------------------------------------------------------- | :-------: | :------: | :-----: | --------------------- |
-| `header`                                                         | _object_  |   Yes    |         | Order header          |
+| `header`                                                         | _object_  |   Yes    |    ~    | Order header          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderNumber`                            | _string_  |   Yes    | max 20  | Order Number          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId`                               | _string_  |    No    | max 80  | Unique Identifier     |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderReference`                         | _string_  |    No    | max 50  | Reference ID          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderPromoCode`                         | _string_  |    No    | max 50  | Promotion Code        |
-| &nbsp;&nbsp;&nbsp;&nbsp;`customer`                               | _object_  |   Yes    |         | Customer              |
+| &nbsp;&nbsp;&nbsp;&nbsp;`customer`                               | _object_  |   Yes    |    ~    | Customer              |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`name`    | _string_  |   Yes    | max 50  | Account Name          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`phone`          | _integer_ |   Yes    | max 18  | Account Phone Number  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`email`          | _string_  |   Yes    | max 100 | Account Email Address |
-| &nbsp;&nbsp;`shipping`                                           | _object_  |   Yes    |         | Moo                   |
+| &nbsp;&nbsp;`shipping`                                           | _object_  |   Yes    |    ~    | Moo                   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`customerName`   | _string_  |   Yes    | max 100 | Shipping Name         |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`address1`       | _string_  |   Yes    | max 100 | Shipping Address 1    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`address2`       | _string_  |   Yes    | max 100 | Shipping Address 2    |
@@ -126,18 +126,19 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`country`        | _string_  |   Yes    | max 50  | Shipping Country      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`phone`          | _integer_ |   Yes    | max 18  | Shipping Phone Number |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`shippingMethod` | _string_  |   Yes    | max 20  | Shipping Method       |
-| `items`                                                          |  _array_  |   Yes    |         | Items                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |   Yes    |         |                       |
+| `items`                                                          |  _array_  |   Yes    |    ~    | Items                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |   Yes    |    ~    |                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`       | _string_  |   Yes    | max 50  | Item Code             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |   Yes    |  max 3  | Item Quantity         |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`sourceImage`    | _string_  |    No    |   URL   | Source Image URL      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _array_<_object_>  |    No    |         | Item Options          |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_ | _object_  |   No    |      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code` | _string_ | Yes |    | Option Code   |
-| `options`                                                        | _array_<_object_> |    No    |         | Options               |
-| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |         |						|
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`           | _string_  |   Yes    |         | Option Code             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |         | Option Quantity         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _array_<_object_>  |    No    |    ~    | Item Options          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_ | _object_  |   No    |   ~  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code` | _string_ | Yes |  ~ | Option Code   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`  | _integer_ |   No    |  ~  | Option Quantity         |
+| `options`                                                        | _array_<_object_> |    No    |    ~    | Options               |
+| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |    ~    |						|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`           | _string_  |   Yes    |    ~    | Option Code             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |    ~    | Option Quantity         |
 
 ```JSON
 [
@@ -168,7 +169,8 @@ _object_
 				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
 				"options": [
 					{
-						"code": "MT1020S2"
+						"code": "MT1020S2",
+						"quantity": 1
 					}
 				]
 			},
@@ -185,7 +187,8 @@ _object_
 				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
 				"options": [
 					{
-						"code": "MT1020S2"
+						"code": "MT1020S2",
+						"quantity": 2
 					}
 				]
 			}
@@ -196,7 +199,8 @@ _object_
 				"quantity": 2
 			},
 			{
-				"code": "SPEP"
+				"code": "SPEP",
+				"quantity": 1
 			}
 		]
   	}
@@ -277,7 +281,6 @@ HTTP Code: `200` (Success)
 
 ```JSON
 {
-	"errors": [],
 	"orders": [
 		{
 			"index": 0,
@@ -303,6 +306,9 @@ HTTP Code: `200` (Success)
 			"createdAt": "2019-11-27T16:27:32.000000Z",
 			"errors": []
 		}
-	]
+	],
+	"errors": []
 }
 ```
+
+> :warning: All responses which are not system errors are returned with a `200` status code. This includes responses to requests where _no orders_ were accepted. Always check the `accepted` value for each order to know if it succeeded.
