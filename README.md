@@ -63,7 +63,7 @@ Before replacement:
   "header": {
     "orderNumber": "PO0061",
     "customer": {
-      "accountName": "Richard Friend",
+      "name": "Richard Friend",
       "phone": 1111111111,
       "email": "support@domain.com"
     },
@@ -72,7 +72,7 @@ Before replacement:
       "address1": "123 Street Address",
       "address2": "Apt #6",
       "city": "Big City",
-      "state": "CA",
+      "province": "CA",
       "postalCode": "11111",
       "country": "USA",
       "phone": 1111111111
@@ -84,7 +84,7 @@ Before replacement:
 After replacement:
 
 ```json
-[{"header":{"orderPONum":"PO0061","customer":{"accountName":"RichardPartner","phone":1111111111,"email":"support@domain.com"},"shipping":{"customerName":"PartnerCustomer","address1":"123StreetAddress","address2":"Apt#6","city":"SaltLakeCity","state":"Utah","postalCode":"11111","country":"USA","phone":1111111111,"shippingMethod":"SPSSP"}},"items":[{"itemCode":"CP1010P","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]},{"itemCode":"CP1020D","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","cropDetails":"[0.2,0.1,0.95,0.85]","orientation":90},{"itemCode":"CP1010P","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]}],"options":[{"itemCode":"SPCC","quantity":2},{"itemCode":"SPEP"}]
+[{"header":{"orderPONum":"PO0061","customer":{"name":"RichardPartner","phone":1111111111,"email":"support@domain.com"},"shipping":{"customerName":"PartnerCustomer","address1":"123StreetAddress","address2":"Apt#6","city":"SaltLakeCity","province":"Utah","postalCode":"11111","country":"USA","phone":1111111111,"shippingMethod":"SPSSP"}},"items":[{"itemCode":"CP1010P","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]},{"itemCode":"CP1020D","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","cropDetails":"[0.2,0.1,0.95,0.85]","orientation":90},{"itemCode":"CP1010P","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]}],"options":[{"itemCode":"SPCC","quantity":2},{"itemCode":"SPEP"}]
 ```
 
 > :warning: The replaced version of the payload should only be used to generate the MD5 hash, then discarded
@@ -111,7 +111,7 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderReference`                         | _string_  |    No    | max 50  | Reference ID          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderPromoCode`                         | _string_  |    No    | max 50  | Promotion Code        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`customer`                               | _object_  |   Yes    |         | Customer              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`accountName`    | _string_  |   Yes    | max 50  | Account Name          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`name`    | _string_  |   Yes    | max 50  | Account Name          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`phone`          | _integer_ |   Yes    | max 18  | Account Phone Number  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`email`          | _string_  |   Yes    | max 100 | Account Email Address |
 | &nbsp;&nbsp;`shipping`                                           | _object_  |   Yes    |         | Moo                   |
@@ -119,7 +119,7 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`address1`       | _string_  |   Yes    | max 100 | Shipping Address 1    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`address2`       | _string_  |   Yes    | max 100 | Shipping Address 2    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`city`           | _string_  |   Yes    | max 50  | Shipping City         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`state`          | _string_  |   Yes    | max 50  | Shipping State        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`province`          | _string_  |   Yes    | max 50  | Shipping Province/State        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`postalCode`     | _string_  |   Yes    | max 16  | Shipping Postal Code  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`country`        | _string_  |   Yes    | max 50  | Shipping Country      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`phone`          | _integer_ |   Yes    | max 18  | Shipping Phone Number |
@@ -129,10 +129,10 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`       | _string_  |   Yes    | max 50  | Item Code             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |   Yes    |  max 3  | Item Quantity         |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`sourceImage`    | _string_  |    No    |   URL   | Source Image URL      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _object_  |    No    |         | Item Options          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _array_<_object_>  |    No    |         | Item Options          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_ | _object_  |   No    |      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code` | _string_ | Yes |    | Option Code   |
-| `options`                                                        | _array_ |    No    |         | Options               |
+| `options`                                                        | _array_<_object_> |    No    |         | Options               |
 | &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |         |						|
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`           | _string_  |   Yes    |         | Option Code             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |         | Option Quantity         |
@@ -143,7 +143,7 @@ _object_
 		"header": {
 		"orderPoNum": "PO0061",
 		"customer": {
-			"accountName": "Richard Partner",
+			"name": "Richard Partner",
 			"phone": 1111111111,
 			"email": "support@domain.com"
 		},
@@ -152,7 +152,7 @@ _object_
 			"address1": "123 Street Address",
 			"address2": "Apt #6",
 			"city": "Salt Lake City",
-			"state": "Utah",
+			"province": "Utah",
 			"postalCode": "11111",
 			"country": "USA",
 			"phone": 1111111111,
