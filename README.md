@@ -142,68 +142,68 @@ _object_
 
 ```JSON
 [
-  	{
-		"header": {
-		    "orderPoNum": "PO0061",
-		    "customer": {
-			    "name": "Richard Partner",
-			    "phone": 1111111111,
-			    "email": "support@domain.com"
-		    },
-		    "shipping": {
-			    "customerName": "Partner Customer",
-			    "address1": "123 Street Address",
-			    "address2": "Apt #6",
-			    "city": "Salt Lake City",
-			    "province": "Utah",
-			    "postalCode": "11111",
-			    "country": "USA",
-			    "phone": 1111111111,
-			    "shippingMethod": "SPSSP"
-		    }
-		},
-		"items": [
-			{
-				"code": "CP1010P",
-				"quantity": 1,
-				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
-				"options": [
-					{
-						"code": "MT1020S2",
-						"quantity": 1
-					}
-				]
-			},
-			{
-				"code": "CP1020D",
-				"quantity": 1,
-				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
-				"cropDetails": "[0.2, 0.1, 0.95, 0.85]",
-				"orientation": 90
-			},
-			{
-				"code": "CP1010P",
-				"quantity": 1,
-				"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
-				"options": [
-					{
-						"code": "MT1020S2",
-						"quantity": 2
-					}
-				]
-			}
-		],
-		"options": [
-			{
-				"code": "SPCC",
-				"quantity": 2
-			},
-			{
-				"code": "SPEP",
-				"quantity": 1
-			}
-		]
-  	}
+  {
+    "header": {
+      "orderPoNum": "PO0061",
+        "customer": {
+  	      "name": "Richard Partner",
+  	      "phone": 1111111111,
+  	      "email": "support@domain.com"
+        },
+        "shipping": {
+  	      "customerName": "Partner Customer",
+  	      "address1": "123 Street Address",
+  	      "address2": "Apt #6",
+  	      "city": "Salt Lake City",
+  	      "province": "Utah",
+  	      "postalCode": "11111",
+  	      "country": "USA",
+  	      "phone": 1111111111,
+  	      "shippingMethod": "SPSSP"
+        }
+    },
+    "items": [
+  	  {
+  		  "code": "CP1010P",
+  		  "quantity": 1,
+  		  "sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+  		  "options": [
+  			{
+  			  "code": "MT1020S2",
+  			  "quantity": 1
+  			}
+  		  ]
+  	  },
+  	  {
+  		"code": "CP1020D",
+  		"quantity": 1,
+  		"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+  		"cropDetails": "[0.2, 0.1, 0.95, 0.85]",
+  		"orientation": 90
+  	  },
+  	  {
+  		"code": "CP1010P",
+  		"quantity": 1,
+  		"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+  		"options": [
+  		  {
+  			"code": "MT1020S2",
+  			"quantity": 2
+  		  }
+  		]
+  	  }
+    ],
+    "options": [
+  	  {
+  		"code": "SPCC",
+  		"quantity": 2
+  	  },
+  	  {
+  		"code": "SPEP",
+  		"quantity": 1
+  	  }
+    ]
+  }
 ]
 ```
 
