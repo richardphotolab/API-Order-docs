@@ -288,7 +288,7 @@ HTTP Code: `200` (Success)
 			"index": 1,
 			"orderNumber": "RP9879",
 			"accepted": 0,
-			"createdAt": "2019-11-27T16:27:12.000000Z",
+			"createdAt": null,
 			"errors": [
 				"The header.customer.email must be a valid email address",
 				"The items.1.quantity field is required"
