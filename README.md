@@ -281,33 +281,33 @@ HTTP Code: `200` (Success)
 
 ```JSON
 {
-	"orders": [
-		{
-			"index": 0,
-			"orderNumber": "RP9876",
-			"accepted": 1,
-			"createdAt": "2019-11-27T16:26:59.000000Z",
-			"errors": []
-		},
-		{
-			"index": 1,
-			"orderNumber": "RP9879",
-			"accepted": 0,
-			"createdAt": null,
-			"errors": [
-				"The header.customer.email must be a valid email address",
-				"The items.1.quantity field is required"
-			]
-		},
-		{
-			"index": 2,
-			"orderNumber": "RP9880",
-			"accepted": 1,
-			"createdAt": "2019-11-27T16:27:32.000000Z",
-			"errors": []
-		}
-	],
-	"errors": []
+  "orders": [
+    {
+	  "index": 0,
+	  "orderNumber": "RP9876",
+	  "accepted": 1,
+	  "createdAt": "2019-11-27T16:26:59.000000Z",
+	  "errors": []
+    },
+	{
+      "index": 1,
+      "orderNumber": "RP9879",
+      "accepted": 0,
+      "createdAt": null,
+      "errors": [
+        "The header.customer.email must be a valid email address",
+        "The items.1.quantity field is required"
+      ]
+	},
+	{
+      "index": 2,
+      "orderNumber": "RP9880",
+      "accepted": 1,
+      "createdAt": "2019-11-27T16:27:32.000000Z",
+      "errors": []
+	}
+  ],
+  "errors": []
 }
 ```
 
