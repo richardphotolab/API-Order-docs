@@ -46,7 +46,7 @@ Access to the API is granted by providing the proper `Authorization` _HTTP heade
 
 ## Payload
 
-A request payload consists of a base container _array_ containing shipment notification _objects_. There must be a minimum of one(1) item, and a maximum of fifty(50)
+A request payload consists of a base container _array_ containing order _objects_. There must be a minimum of one(1) order, and a maximum of fifty(50).
 
 ### Checksum
 
@@ -59,41 +59,43 @@ The whitespace replacement regular expression we recommend (and use ourselves) i
 Before replacement:
 
 ```json
-{
-  "header": {
-    "orderNumber": "PO0061",
-    "customer": {
-      "name": "Richard Friend",
-      "phone": 1111111111,
-      "email": "support@domain.com"
-    },
-    "shipping": {
-      "customerName": "Richard Person",
-      "address1": "123 Street Address",
-      "address2": "Apt #6",
-      "city": "Big City",
-      "province": "CA",
-      "postalCode": "11111",
-      "country": "USA",
-      "phone": 1111111111
+[
+  {
+    "header": {
+      "orderNumber": "PO0061",
+      "customer": {
+        "name": "Richard Partner",
+        "phone": 1111111111,
+        "email": "support@domain.com"
+      },
+      "shipping": {
+        "customerName": "Richard Person",
+        "address1": "123 Street Address",
+        "address2": "Apt #6",
+        "city": "Big City",
+        "province": "CA",
+        "postalCode": "11111",
+        "country": "USA",
+        "phone": 1111111111
+      }
     }
   }
-}
+]
 ```
 
 After replacement:
 
 ```json
-[{"header":{"orderPONum":"PO0061","customer":{"name":"RichardPartner","phone":1111111111,"email":"support@domain.com"},"shipping":{"customerName":"PartnerCustomer","address1":"123StreetAddress","address2":"Apt#6","city":"SaltLakeCity","province":"Utah","postalCode":"11111","country":"USA","phone":1111111111,"shippingMethod":"SPSSP"}},"items":[{"itemCode":"CP1010P","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]},{"itemCode":"CP1020D","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","cropDetails":"[0.2,0.1,0.95,0.85]","orientation":90},{"itemCode":"CP1010P","quantity":1,"sourceImage":"http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg","options":[{"itemCode":"MT1020S2"}]}],"options":[{"itemCode":"SPCC","quantity":2},{"itemCode":"SPEP"}]
+[{"header":{"orderNumber":"PO0061","customer":{"name":"RichardPartner","phone":1111111111,"email":"support@domain.com"},"shipping":{"customerName":"RichardPerson","address1":"123StreetAddress","address2":"Apt#6","city":"BigCity","province":"CA","postalCode":"11111","country":"USA","phone":1111111111}}}]
 ```
-
 > :warning: The replaced version of the payload should only be used to generate the MD5 hash, then discarded
+
 
 #### Header
 
 | Header                  |   Type   | Required | Default | Description                                                |
 | ----------------------- | :------: | :------: | :-----: | ---------------------------------------------------------- |
-| `RPL-X-PayloadChecksum` | _string_ |   Yes    |    ~    | The request hash (e.g. `9CBE3F5D9A06E74DCFAA371699902A12`) |
+| `RPL-X-PayloadChecksum` | _string_ |   Yes    |    ~    | The request hash (e.g. `4730815c370745ca3408d6211273f698`) |
 
 > :warning: Because this hash is used only for payload verification and not authorization, the known security issues with MD5 are of negligible concern
 
