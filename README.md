@@ -15,6 +15,8 @@
   - [Orders](#orders)
   - [Errors](#errors)
 
+rev 1.1
+
 ## Overview
 
 The Order API is a private REST interface for approved Richard partners to submit new order registrations for processing.
