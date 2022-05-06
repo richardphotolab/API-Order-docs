@@ -273,6 +273,7 @@ Field | Type | Description
 ------|:----:|------------
 `index` | _integer_ | Internally generated reference for each item
 `orderNumber` | _string_ \| _null_ | Provided order number for this item
+`uniqueId` | _string_ \| _null_ | Provided unique id for this item
 `accepted` | _integer_ (`0`/`1`) | Value representing if the order was accepted/successful
 `createdAt` | _string_ \| _null_ | Full string date and time in UTC when the order was accepted
 `errors` | _array_<_string_> | Error messages in the event that the order count not be processed
@@ -287,6 +288,7 @@ HTTP Code: `200` (Success)
     {
 	  "index": 0,
 	  "orderNumber": "RP9876",
+	  "uniqueId": "A991321",
 	  "accepted": 1,
 	  "createdAt": "2019-11-27T16:26:59.000000Z",
 	  "errors": []
@@ -294,6 +296,7 @@ HTTP Code: `200` (Success)
 	{
       "index": 1,
       "orderNumber": "RP9879",
+	  "uniqueId": null,
       "accepted": 0,
       "createdAt": null,
       "errors": [
@@ -304,6 +307,7 @@ HTTP Code: `200` (Success)
 	{
       "index": 2,
       "orderNumber": "RP9880",
+	  "uniqueId": "A991328",
       "accepted": 1,
       "createdAt": "2019-11-27T16:27:32.000000Z",
       "errors": []
