@@ -287,39 +287,39 @@ HTTP Code: `200` (Success)
 
 ```JSON
 {
-	"orders": [
-		{
-			"index": 0,
-			"orderNumber": "RP9876",
-			"uniqueId": "A991321",
-			"richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
-			"accepted": 1,
-			"createdAt": "2019-11-27T16:26:59.000000Z",
-			"errors": []
-		},
-		{
-			"index": 1,
-			"orderNumber": "RP9879",
-			"uniqueId": null,
-			"richardId": "rpl-oae-hy9fec4-a46c-4ead-99c2-2404b9aeG4zS",
-			"accepted": 0,
-			"createdAt": null,
-			"errors": [
-				"The header.customer.email must be a valid email address",
-				"The items.1.quantity field is required"
-			]
-		},
-		{
-			"index": 2,
-			"orderNumber": "RP9880",
-			"uniqueId": "A991328",
-			"richardId": "rpl-oae-rsb9fec4-c76c-7fad-99c2-3724b9aeS9wM",
-			"accepted": 1,
-			"createdAt": "2019-11-27T16:27:32.000000Z",
-			"errors": []
-		}
-	],
-	"errors": []
+  "orders": [
+    {
+      "index": 0,
+      "orderNumber": "RP9876",
+      "uniqueId": "A991321",
+      "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
+      "accepted": 1,
+      "createdAt": "2019-11-27T16:26:59.000000Z",
+      "errors": []
+    },
+    {
+      "index": 1,
+      "orderNumber": "RP9879",
+      "uniqueId": null,
+      "richardId": "rpl-oae-hy9fec4-a46c-4ead-99c2-2404b9aeG4zS",
+      "accepted": 0,
+      "createdAt": null,
+      "errors": [    
+	    "The header.customer.email must be a valid email address",    
+	    "The items.1.quantity field is required"
+      ]
+    },
+    {
+      "index": 2,
+      "orderNumber": "RP9880",
+      "uniqueId": "A991328",
+      "richardId": "rpl-oae-rsb9fec4-c76c-7fad-99c2-3724b9aeS9wM",
+      "accepted": 1,
+      "createdAt": "2019-11-27T16:27:32.000000Z",
+      "errors": []
+    }
+  ],
+  "errors": []
 }
 ```
 
