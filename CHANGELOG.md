@@ -4,6 +4,11 @@
 
 # Documentation Changelog
 
++ Revision 1.1.2 (2022/09/16)
+	- Fix item source image URL in example payload to a working version
+	- Correct order number field name from `orderPONum` to `orderNumber`
+	- Add Richard's internal identifier as `richardId` to order response payloads
+
 + Revision 1.1.1 (2022/05/06)
 	- Add `uniqueId` data to response payload
 
