@@ -168,7 +168,7 @@ _object_
   	  {
   		  "code": "CP1010P",
   		  "quantity": 1,
-  		  "sourceImage": "https://www.richardphotolab.com/themes/rpl/assets/img/rpl-logo.png",
+  		  "sourceImage": "https://orders-sf1-api.richardphotolab.com/storage/sample-image.jpg",
   		  "options": [
   			{
   			  "code": "MT1020S2",
@@ -179,14 +179,14 @@ _object_
   	  {
   		"code": "CP1020D",
   		"quantity": 1,
-  		"sourceImage": "https://www.richardphotolab.com/themes/rpl/assets/img/rpl-logo.png",
+  		"sourceImage": "https://orders-sf1-api.richardphotolab.com/storage/sample-image.jpg",
   		"cropDetails": "[0.2, 0.1, 0.95, 0.85]",
   		"orientation": 90
   	  },
   	  {
   		"code": "CP1010P",
   		"quantity": 1,
-  		"sourceImage": "https://www.richardphotolab.com/themes/rpl/assets/img/rpl-logo.png",
+  		"sourceImage": "https://orders-sf1-api.richardphotolab.com/storage/sample-image.jpg",
   		"options": [
   		  {
   			"code": "MT1020S2",
