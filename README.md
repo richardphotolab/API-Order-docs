@@ -168,7 +168,7 @@ _object_
   	  {
   		  "code": "CP1010P",
   		  "quantity": 1,
-  		  "sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+  		  "sourceImage": "https://www.richardphotolab.com/themes/rpl/assets/img/rpl-logo.png",
   		  "options": [
   			{
   			  "code": "MT1020S2",
@@ -179,14 +179,14 @@ _object_
   	  {
   		"code": "CP1020D",
   		"quantity": 1,
-  		"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+  		"sourceImage": "https://www.richardphotolab.com/themes/rpl/assets/img/rpl-logo.png",
   		"cropDetails": "[0.2, 0.1, 0.95, 0.85]",
   		"orientation": 90
   	  },
   	  {
   		"code": "CP1010P",
   		"quantity": 1,
-  		"sourceImage": "http://www.google.co.in/intl/en_com/images/srpr/logo1w.jpg",
+  		"sourceImage": "https://www.richardphotolab.com/themes/rpl/assets/img/rpl-logo.png",
   		"options": [
   		  {
   			"code": "MT1020S2",
@@ -217,7 +217,7 @@ All responses from the service will be formatted as valid JSON.
 
 The response will include an `errors` array containing any errors which occurred during the processing of your request, and an `orders` array containing details of each item in your request (unless a Service Error).
 
-All response payloads except Service Errors (see below), also include a `mode` boolean integer field indicating if the request payload was processed in a test or live mode.
+All response payloads except Service Errors (see below), also include a `mode` Boolean integer field indicating if the request payload was processed in a test or live mode.
 
 ### Service Errors
 
