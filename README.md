@@ -146,7 +146,7 @@ _object_
 [
   {
     "header": {
-      "orderPoNum": "PO0061",
+      "orderNumber": "PO0061",
         "customer": {
   	      "name": "Richard Partner",
   	      "phone": 1111111111,
@@ -275,8 +275,11 @@ Field | Type | Description
 `orderNumber` | _string_ \| _null_ | Provided order number for this item
 `uniqueId` | _string_ \| _null_ | Provided unique id for this item
 `accepted` | _integer_ (`0`/`1`) | Value representing if the order was accepted/successful
+`richardId` | _string_ | Richard's internal identifier
 `createdAt` | _string_ \| _null_ | Full string date and time in UTC when the order was accepted
 `errors` | _array_<_string_> | Error messages in the event that the order count not be processed
+
+> :warning: All order responses include Richard's internal identifier. This is to provide a stable constant when handling possible issue resolution.
 
 #### 200 Created
 
@@ -289,6 +292,7 @@ HTTP Code: `200` (Success)
 	  "index": 0,
 	  "orderNumber": "RP9876",
 	  "uniqueId": "A991321",
+	  "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
 	  "accepted": 1,
 	  "createdAt": "2019-11-27T16:26:59.000000Z",
 	  "errors": []
@@ -297,6 +301,7 @@ HTTP Code: `200` (Success)
       "index": 1,
       "orderNumber": "RP9879",
 	  "uniqueId": null,
+	  "richardId": "rpl-oae-hy9fec4-a46c-4ead-99c2-2404b9aeG4zS",
       "accepted": 0,
       "createdAt": null,
       "errors": [
@@ -308,6 +313,7 @@ HTTP Code: `200` (Success)
       "index": 2,
       "orderNumber": "RP9880",
 	  "uniqueId": "A991328",
+	  "richardId": "rpl-oae-rsb9fec4-c76c-7fad-99c2-3724b9aeS9wM",
       "accepted": 1,
       "createdAt": "2019-11-27T16:27:32.000000Z",
       "errors": []
