@@ -41,8 +41,8 @@ Access to the API is granted by providing the proper `Authorization` _HTTP heade
 
 | Header          |        Type         | Required | Default | Description                                           |
 | --------------- | :-----------------: | :------: | :-----: | ----------------------------------------------------- |
-| `Authorization` |      _string_       |   Yes    |    ~    | Your token with the Bearer prefix (e.g. `Bearer <token>`) |
-| `RPL-X-Mode`    | _integer_ (`0`/`1`) |    No    |   `0`   | Mode of request live or a test (`0`-test/`1`-live)    |
+| `authorization` |      _string_       |   Yes    |    ~    | Your token with the Bearer prefix (e.g. `Bearer <token>`) |
+| `rpl-x-mode`    | _integer_ (`0`/`1`) |    No    |   `0`   | Mode of request live or a test (`0`-test/`1`-live)    |
 
 <br/>
 
@@ -65,11 +65,6 @@ Before replacement:
   {
     "header": {
       "orderNumber": "PO0061",
-      "customer": {
-        "name": "Richard Partner",
-        "phone": 1111111111,
-        "email": "support@domain.com"
-      },
       "shipping": {
         "customerName": "Richard Person",
         "address1": "123 Street Address",
@@ -88,7 +83,7 @@ Before replacement:
 After replacement:
 
 ```json
-[{"header":{"orderNumber":"PO0061","customer":{"name":"RichardPartner","phone":1111111111,"email":"support@domain.com"},"shipping":{"customerName":"RichardPerson","address1":"123StreetAddress","address2":"Apt#6","city":"BigCity","province":"CA","postalCode":"11111","country":"USA","phone":1111111111}}}]
+[{"header":{"orderNumber":"PO0061","shipping":{"customerName":"RichardPerson","address1":"123StreetAddress","address2":"Apt#6","city":"BigCity","province":"CA","postalCode":"11111","country":"USA","phone":1111111111}}}]
 ```
 > :warning: The replaced version of the payload should only be used to generate the MD5 hash, then discarded
 
@@ -97,7 +92,7 @@ After replacement:
 
 | Header                  |   Type   | Required | Default | Description                                                |
 | ----------------------- | :------: | :------: | :-----: | ---------------------------------------------------------- |
-| `RPL-X-PayloadChecksum` | _string_ |   Yes    |    ~    | The request hash (e.g. `4730815c370745ca3408d6211273f698`) |
+| `rpl-x-payloadchecksum` | _string_ |   Yes    |    ~    | The request hash (e.g. `5e459d27c2bf56bf39adc9a968c59096`) |
 
 > :warning: Because this hash is used only for payload verification and not authorization, the known security issues with MD5 are of no concern
 
@@ -114,10 +109,6 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId`                               | _string_  |    No    | max 80  | Unique Identifier     |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderReference`                         | _string_  |    No    | max 50  | Reference ID          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderPromoCode`                         | _string_  |    No    | max 50  | Promotion Code        |
-| &nbsp;&nbsp;&nbsp;&nbsp;`customer`                               | _object_  |   Yes    |    ~    | Customer              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`name`    | _string_  |   Yes    | max 50  | Account Name          |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`phone`          | _integer_ |   Yes    | max 18  | Account Phone Number  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`email`          | _string_  |   Yes    | max 100 | Account Email Address |
 | &nbsp;&nbsp;`shipping`                                           | _object_  |   Yes    |    ~    |                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`customerName`   | _string_  |   Yes    | max 100 | Shipping Name         |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`address1`       | _string_  |   Yes    | max 100 | Shipping Address 1    |
@@ -147,11 +138,6 @@ _object_
   {
     "header": {
       "orderNumber": "PO0061",
-      "customer": {
-        "name": "Richard Partner",
-        "phone": 1111111111,
-        "email": "support@domain.com"
-      },
       "shipping": {
         "customerName": "Partner Customer",
         "address1": "123 Street Address",
