@@ -3,6 +3,9 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.1.3 (2022/10/10)
+	- Separate single page documentation into general and endpoint specific pieces
+	- Modifications to Create endpoint to make it jive better with new changes
 
 + Revision 1.1.2 (2022/09/16)
 	- Fix item source image URL in example payload to a working version
