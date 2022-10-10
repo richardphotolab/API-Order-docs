@@ -8,6 +8,7 @@ rev 1.1.3 ([changelog](CHANGELOG.md))
 
 ## General
 - [Request Basics](REQUEST.md)
+- [Response Basics](RESPONSE.md)
 
 ## Services
 
