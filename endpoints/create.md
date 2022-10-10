@@ -15,7 +15,7 @@
   - [Orders](#orders)
   - [Errors](#errors)
 
-rev 1.1.2 ([changelog](CHANGELOG.md))
+
 
 ## Overview
 
