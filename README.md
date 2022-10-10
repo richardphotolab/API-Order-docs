@@ -4,6 +4,11 @@
 
 # Richard Partner API Documentation
 
+rev 1.1.2 ([changelog](CHANGELOG.md))
+
+## General
+- [Request Basics](REQUEST.md)
+
 ## Services
 
 - Order
