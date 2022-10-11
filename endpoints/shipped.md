@@ -6,11 +6,11 @@
 
 - [Overview](#overview)
   - [Support](#support)
-- [Method GET](#method-GET)
-  - [Response](#get-response)
-- [Method POST](#method-POST)
-  - [Request](#post-request)
-  - [Response](#post-response)
+- [Method GET](#method-get)
+  - [Response](#response)
+- [Method POST](#method-post)
+  - [Request](#request)
+  - [Response](#response-1)
 
 ## Overview
 
