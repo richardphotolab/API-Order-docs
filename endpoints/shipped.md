@@ -60,8 +60,8 @@ HTTP Code: `200` (Success)
       "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
 	  "shipment": {
 		"datetime": "2022-10-02 13:28:12+0700",
-      	"carrier": "ups",
-	  	"trackingNumber": "1Z001985YW99744790"
+		"carrier": "ups",
+		"trackingNumber": "1Z001985YW99744790"
 	  },
       "errors": []
     },
