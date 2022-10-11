@@ -28,7 +28,7 @@ You can authenticate your connection by providing the proper `Authorization` _HT
 
 ### Checksum
 
-All requests require an _HTTP Header_ containing a checksum hash generated from the payload contents. This is accomplished by striping the payload of any whitespace (including between words) and pushing it through a simple MD5 hashing mechanism (your developer will be familiar with this).
+All requests containing a payload require an _HTTP Header_ containing a checksum hash generated from the payload contents. This is accomplished by striping the payload of any whitespace (including between words) and pushing it through a simple MD5 hashing mechanism (your developer will be familiar with this).
 
 The whitespace replacement regular expression we recommend (and use ourselves) is simply `\s+` (_multiline_) & (_global_) replaced with nothing `''`.
 
