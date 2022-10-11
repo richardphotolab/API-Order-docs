@@ -3,9 +3,15 @@
 </p>
 
 # Documentation Changelog
-+ Revisions 1.1.3 (2022/10/10)
+
++ Revisions 1.1.4 (2022/10/11)
+	- Created new doc for order/shipping endpoint (with new layout)
+	- Changed order/create endpoint to new layout
+	- Tweaks across several pages
+
++ Revision 1.1.3 (2022/10/10)
 	- Separate single page documentation into general and endpoint specific pieces
-	- Modifications to Create endpoint to make it jive better with new changes
+	- Modifications to order/create endpoint to make it jive better with new changes
 
 + Revision 1.1.2 (2022/09/16)
 	- Fix item source image URL in example payload to a working version
