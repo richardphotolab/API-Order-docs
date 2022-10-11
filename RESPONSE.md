@@ -54,3 +54,5 @@ HTTP Code: `500` :scream:
 ```
 
 > :boom: Unknown errors should _never_ occur. If you receive this response please cease sending requests to the service and contact api support immediately.
+
+> :warning: All responses which are not system errors are returned with a `200` status code. This includes responses to requests where _no orders_ were accepted. Always check the `accepted` value for each order to know if it succeeded.
