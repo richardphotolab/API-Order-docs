@@ -6,16 +6,9 @@
 
 - [Overview](#overview)
   - [Support](#support)
-  - [Anatomy](#anatomy)
-- [Authorization](#authorization)
-  - [Headers](#headers)
-- [Payload](#payload)
-- [Responses](#responses)
-  - [Service Errors](#service-errors)
-  - [Orders](#orders)
-  - [Errors](#errors)
-
-
+- [Method: POST](#method-post)
+  - [Request](#request)
+  - [Response](#response)
 
 ## Overview
 
@@ -25,15 +18,13 @@ The Create API is a private REST interface for approved Richard partners to subm
 
 For API support, please email api.support@richardphotolab.com
 
-## Payload
+## Method: `POST`
 
-> :warning: This information is specific to this endpoint. You must *_also_* understand the [base request documentation](../REQUEST.md).
+### Request
 
-The payload is designed to provide the ability to include one or many order registrations, as needed. A payload consists of a base container _array_ containing order _objects_. There must be a minimum of one(1) order, and a maximum of fifty(50).
+> :warning: This information is specific to this endpoint. You must **_also_** understand the [basic REQUEST documentation](../REQUEST.md).
 
-### Requests
-
-**Method:** `POST`
+The payload is designed to let you include one or many order registrations, as needed. A payload consists of a base container _array_ containing order _objects_. There must be a minimum of one(1) order, and a maximum of fifty(50).
 
 _object_
 
@@ -132,62 +123,11 @@ _object_
 
 <br/>
 
-## Responses
+### Response
 
-All responses from the service will be formatted as valid JSON.
+> :warning: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../REQUEST.md).
 
-The response will include an `errors` array containing any errors which occurred during the processing of your request, and an `orders` array containing details of each item in your request (unless a Service Error).
-
-All response payloads except Service Errors (see below), also include a `mode` Boolean integer field indicating if the request payload was processed in a test or live mode.
-
-### Service Errors
-
-Service errors are low level failures which block any further processing of the request payload. These include authorization failures as well as malformed payloads (invalid JSON structure, missing required fields). The type of error is determined by examining the return HTTP status code along with the error message(s) in the returned payload.
-
-The payload is made up of an `errors` array containing a message line for each error which occurred.
-
-> :ok_hand: In most circumstances service errors generate only one message line
-
-_object_
-Field | Type | Description
-------|:----:|------------
-`errors` | _array_<_string_> | Messages of the error which occurred
-
-#### 401 Unauthorized
-
-HTTP Code: `401`
-
-```JSON
-{
-  "errors": [ "Authorization failure" ]
-}
-```
-
-#### 422 Unprocessable Entity
-
-HTTP Code: `422`
-
-```JSON
-{
-  "errors": [ "Malformed payload" ]
-}
-```
-
-#### 500 Internal Error
-
-HTTP Code: `500` :scream:
-
-```JSON
-{
-  "errors": [ "Unknown error" ]
-}
-```
-
-> :boom: Unknown errors should _never_ occur. If you receive this response please cease sending requests to the service and contact api support immediately.
-
-<br/>
-
-### Orders
+#### Orders ( `orders` )
 
 _object_
 Field | Type | Description
@@ -200,11 +140,7 @@ Field | Type | Description
 `createdAt` | _string_ \| _null_ | Full string date and time in UTC when the order was accepted
 `errors` | _array_<_string_> | Error messages in the event that the order count not be processed
 
-> :warning: All order responses include Richard's internal identifier. This is to provide a stable constant when handling possible issue resolution.
-
-#### 200 Created
-
-HTTP Code: `200` (Success)
+#### HTTP Code: `200` (Success)
 
 ```JSON
 {
