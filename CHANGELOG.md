@@ -4,6 +4,9 @@
 
 # Documentation Changelog
 
++ Revisions 1.1.5 (2022/10/26)
+	- Modification of `crop` field in payload
+
 + Revisions 1.1.4 (2022/10/11)
 	- Created new doc for order/shipping endpoint (with new layout)
 	- Changed order/create endpoint to new layout
