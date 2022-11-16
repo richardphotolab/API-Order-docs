@@ -41,7 +41,7 @@ This method returns all orders currently marked as shipped _and_ not marked as r
 | &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`carrierName`    | _string_  | Carrier name    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`trackingNumber` | _string_  | Tracking number |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`datetime`       | _string_  | Date & time of shipment |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`datetime`       | _string_  | Date & time of shipment (Iso8601Zulu) |
 `errors` | _array_<_string_> | Error messages in the event that the order could not be processed
 
 > :warning: All order responses include Richard's internal identifier. This is to provide a stable constant when handling possible issue resolution.
@@ -59,7 +59,7 @@ HTTP Code: `200` (Success)
       "uniqueId": "A991321",
       "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
 	  "shipment": {
-		"datetime": "2022-10-02 13:28:12+0700",
+		"datetime": "2022-10-02T13:28:12Z",
 		"carrier": "ups",
 		"trackingNumber": "1Z001985YW99744790"
 	  },
