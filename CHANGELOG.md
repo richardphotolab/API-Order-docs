@@ -4,6 +4,10 @@
 
 # Documentation Changelog
 
++ Revisions 1.1.6 (2022/11/17)
+	- Update datetime to properly show as ISO8601Zulu on `shipped` endpoint
+	- Fixed the `create` payload not properly showing `address2` as optional
+
 + Revisions 1.1.5 (2022/10/26)
 	- Modification of `crop` field in payload
 
