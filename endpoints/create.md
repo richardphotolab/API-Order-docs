@@ -26,6 +26,10 @@ For API support, please email api.support@richardphotolab.com
 
 The payload is designed to let you include one or many order registrations, as needed. A payload consists of a base container _array_ containing order _objects_. There must be a minimum of one(1) order, and a maximum of fifty(50).
 
+The `uniqueId` should be considered an absolute unique identifier for one of your orders. If you already track base and instance ids for your orders, you can use the _base_ in `uniqueId` and _instance_ in `orderNumber`. If you only have an order number, you may put the order number in both fields.
+
+:warning: It is important to understand that whatever value is in `uniqueId`, will be used to check for existing orders. If a match is found, the incoming order will be considered a duplicate, then rejected.
+
 _object_
 
 | Field                                                            |   Type    | Required | Limits  | Description           |
