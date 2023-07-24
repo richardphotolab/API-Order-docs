@@ -27,7 +27,7 @@ This method returns all orders currently marked as shipped _and_ not marked as r
 
 ### Response
 
-> :warning: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../REQUEST.md).
+> :warning: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../RESPONSE.md).
 
 #### Payload
 
@@ -115,7 +115,7 @@ _object_
 
 ### Response
 
-> :warning: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../REQUEST.md).
+> :warning: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../RESPONSE.md).
 
 _object_
 Field | Type | Description
