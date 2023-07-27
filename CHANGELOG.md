@@ -3,7 +3,8 @@
 </p>
 
 # Documentation Changelog
-
++ Revisions 1.1.7 (2023/07/27)
+	- Updates to `shipped` endpoint to provide better description
 + Revisions 1.1.6 (2022/11/17)
 	- Update datetime to properly show as ISO8601Zulu on `shipped` endpoint
 	- Fixed the `create` payload not properly showing `address2` as optional

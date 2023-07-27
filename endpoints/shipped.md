@@ -33,16 +33,18 @@ This method returns all orders currently marked as shipped _and_ not marked as r
 
 | Field | Type | Description |
 | ----- |:----:|-------------|
-| `index` | _integer_ | Internally generated reference for each item
-| `orderNumber` | _string_ \| _null_ | Provided order number for this item
-| `uniqueId` | _string_ \| _null_ | Provided unique id for this item
-| `richardId` | _string_ | Richard's internal identifier
-| `shipment` | _array_ | Shipment
-| &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`carrierName`    | _string_  | Carrier name    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`trackingNumber` | _string_  | Tracking number |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`datetime`       | _string_  | Date & time of shipment (Iso8601Zulu) |
-`errors` | _array_<_string_> | Error messages in the event that the order could not be processed
+| `orders` | _array_ | List of orders |
+| &nbsp;&nbsp;&nbsp;&nbsp;`index` | _integer_ | Internally generated index for each item |
+| &nbsp;&nbsp;&nbsp;&nbsp;`richardId` | _string_ | Richard's internal identifier |
+| &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId` | _string_ \| _null_ | Provided unique id for this item |
+| &nbsp;&nbsp;&nbsp;&nbsp;`orderNumber` | _string_ \| _null_ | Provided order number for this item |
+| &nbsp;&nbsp;&nbsp;&nbsp;`shipment` | _array_ | Shipment |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_(recurring array)_  | _object_  |   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`carrierProvider`    	   | _string_  | Carrier provider (e.g. UPS)    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`carrierService`    	   | _string_  | Carrier service (e.g. "next day")    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`trackingNumber`     | _string_  | Tracking number |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`datetime`           | _string_  | Date & time of shipment (Iso8601Zulu) |
+| `errors` | _array_<_string_> | Error messages in the event that the order could not be processed
 
 > :warning: All order responses include Richard's internal identifier. This is to provide a stable constant when handling possible issue resolution.
 
@@ -53,17 +55,17 @@ HTTP Code: `200` (Success)
 ```JSON
 {
   "orders": [
-    {
+	{
       "index": 0,
-      "orderNumber": "RP9876",
-      "uniqueId": "A991321",
       "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
+      "uniqueId": "A991321",
+      "orderNumber": "RP9876",
 	  "shipment": {
-		"datetime": "2022-10-02T13:28:12Z",
-		"carrier": "ups",
+		"carrierProvider": "ups",
+		"carrierService": "UPS Ground",
 		"trackingNumber": "1Z001985YW99744790"
+		"dateTime": "2022-10-02T13:28:12Z",
 	  },
-      "errors": []
     },
     {
       "index": 1,
@@ -92,19 +94,13 @@ _object_
 
 | Field             |   Type    | Required | Limits  | Description           |
 | ----------------- | :-------: | :------: | :-----: | --------------------- |
-| `orderNumber`     | _string_  |    Yes _(one of)_    | max 20  | Order Number          |
-| `uniqueId`        | _string_  |    Yes _(one of)_    | max 80  | Unique Identifier     |
 | `richardId`       | _string_  |    Yes _(one of)_    | max 80  | Richard Identifier     |
 
-> :raised_hand: Only one of the order identification fields above is required to acknowledge an order.
 
 ```JSON
 [
   {
-    "orderNumber": "RP9876",
-  },
-  {
-	"uniqueId": "154687354234"
+	"richardId": "rpl-oae-ceb9fec4-a46c-8zad-09c2-1404b9ae812f"
   },
   {
 	"richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6"
@@ -121,7 +117,6 @@ _object_
 Field | Type | Description
 ------|:----:|------------
 `index` | _integer_ | Internally generated reference for each item
-`orderNumber` | _string_ \| _null_ | Provided order number for this item
 `uniqueId` | _string_ \| _null_ | Provided unique id for this item
 `accepted` | _integer_ (`0`/`1`) | Value representing if the order was accepted/successful
 `richardId` | _string_ | Richard's internal identifier
@@ -138,17 +133,15 @@ HTTP Code: `200` (Success)
   "orders": [
     {
       "index": 0,
-      "orderNumber": "RP9876",
-      "uniqueId": "A991321",
       "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
+      "uniqueId": "A991321",
       "accepted": 1,
       "errors": []
     },
     {
       "index": 1,
-      "orderNumber": "RP9879",
-      "uniqueId": null,
       "richardId": "rpl-oae-hy9fec4-a46c-4ead-99c2-2404b9aeG4zS",
+      "uniqueId": null,
       "accepted": 0,
       "errors": [    
 	    "One of the order identification fields must be present",    
@@ -156,7 +149,6 @@ HTTP Code: `200` (Success)
     },
     {
       "index": 2,
-      "orderNumber": "RP9880",
       "uniqueId": "A991328",
       "richardId": "rpl-oae-rsb9fec4-c76c-7fad-99c2-3724b9aeS9wM",
       "accepted": 1,
