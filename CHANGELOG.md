@@ -3,6 +3,8 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.1.8 (2023/10/14)
+	- Added `text` field to payload to support an arbitrary string on line items
 + Revisions 1.1.7 (2023/07/27)
 	- Updates to `shipped` endpoint to provide better description
 	- Added brief process flow overview to `shipped` endpoint
