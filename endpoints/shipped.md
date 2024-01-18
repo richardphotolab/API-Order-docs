@@ -48,8 +48,7 @@ This method returns all orders currently marked as shipped _and_ not marked as r
 | &nbsp;&nbsp;&nbsp;&nbsp;`richardId` | _string_ | Richard's internal identifier |
 | &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId` | _string_ \| _null_ | Provided unique id for this item |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderNumber` | _string_ \| _null_ | Provided order number for this item |
-| &nbsp;&nbsp;&nbsp;&nbsp;`shipment` | _array_ | Shipment |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_(recurring array)_  | _object_  |   |
+| &nbsp;&nbsp;&nbsp;&nbsp;`shipment` | _object_ | Shipment |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`carrierProvider`    	   | _string_  | Carrier provider (e.g. UPS)    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`carrierService`    	   | _string_  | Carrier service (e.g. "next day")    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`trackingNumber`     | _string_  | Tracking number |
