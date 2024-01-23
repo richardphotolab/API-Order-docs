@@ -14,6 +14,8 @@
 
 The Create API is a private REST interface for approved Richard partners to submit new order registrations for processing.
 
+**Endpoint:** `/create`
+
 ### Support
 
 For API support, please email api.support@richardphotolab.com
