@@ -16,6 +16,8 @@
 
 The Shipped API is a private REST interface for approved Richard partners to manage newly shipped order notifications.
 
+**Endpoint:** `/shipped`
+
 The process is as follows:
 
 - Partner polls the `shipped` endpoint using `GET` to be informed of orders Richard has shipped.
