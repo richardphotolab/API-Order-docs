@@ -69,10 +69,10 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |    ~    | Option Quantity         |
 
 <a id="warning-uniqueId"></a>
-> :warning: NOTE: The value of `uniqueId` provided will be used to check for existing orders. Only if a match is found, will the incoming order will be considered a duplicate, then rejected. Therefore, generating a `uniqueId` on each request will never be rejected. _Always_ generate and _store_ your `uniqueId` with the order, and use it with each request.
+:warning: The value of `uniqueId` provided will be used to check for existing orders. Only if a match is found, will the incoming order will be considered a duplicate, then rejected. Therefore, generating a `uniqueId` on each request will never be rejected. _Always_ generate and _store_ your `uniqueId` with the order, and use it with each request.
 
 <a id="warning-backPrintText1"></a>
-> :warning: NOTE: The allowed length of `backPrintText1` is calculated based on an assumed maximum `orderNumber` length of twelve(12) characters. If the `orderNumber` is longer, your `backPrintText1` text is at risk of being truncated. (This does not effect `backPrintText2`)
+> :pushpin: NOTE: The allowed length of `backPrintText1` is calculated based on an assumed maximum `orderNumber` length of twelve(12) characters. If the `orderNumber` is longer, your `backPrintText1` text is at risk of being truncated. (This does not effect `backPrintText2`)
 
 ```JSON
 [
@@ -142,7 +142,7 @@ _object_
 
 ### Response
 
-> :warning: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../REQUEST.md).
+> :pushpin: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../REQUEST.md).
 
 #### Orders ( `orders` )
 
@@ -197,4 +197,4 @@ Field | Type | Description
 }
 ```
 
-> :warning: All responses which are not system errors are returned with a `200` status code. This includes responses to requests where _no orders_ were accepted. Always check the `accepted` value for each order to know if it succeeded.
+:warning: All responses which are not system errors are returned with a `200` status code. This includes responses to requests where _no orders_ were accepted. Always check the `accepted` value for each order to know if it succeeded.

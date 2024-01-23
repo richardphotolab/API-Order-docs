@@ -24,7 +24,7 @@ The process is as follows:
 
 The notification will only be removed from the list once it has been acknowledged as received. This puts most of the control for the flow of the process in the hands of the partner, allowing them to customize their implementation to their needs.
 
-> :warning: Acknowledging notifications requires an absolute unique reference, so the `richardId` is used for this purpose. This id is available in the original `GET` request, to make it simple.
+> :pushpin: Acknowledging notifications requires an absolute unique reference, so the `richardId` is used for this purpose. This id is available in the original `GET` request, to make it simple.
 
 ### Support
 
@@ -33,11 +33,12 @@ For API support, please email api.support@richardphotolab.com
 ## Method: `GET`
 
 This method returns all orders currently marked as shipped _and_ not marked as received by you.
-> :warning: Keep in mind that every shipping notification must be acknowledged as received before it will be removed from the pending list. Therefore, if your pending and acknowledge processes are running out of sync, be sure to accommodate for possible duplicates in the pending list.
+
+:warning: Keep in mind that every shipping notification must be acknowledged as received before it will be removed from the pending list. Therefore, if your pending and acknowledge processes are running out of sync, be sure to accommodate for possible duplicates in the pending list.
 
 ### Response
 
-> :warning: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../RESPONSE.md).
+> :pushpin: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../RESPONSE.md).
 
 #### Payload
 
@@ -55,7 +56,7 @@ This method returns all orders currently marked as shipped _and_ not marked as r
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`datetime`           | _string_  | Date & time of shipment (Iso8601Zulu) |
 | `errors` | _array_<_string_> | Error messages in the event that the order could not be processed
 
-> :warning: All order responses include Richard's internal identifier. This is to provide a stable constant when handling possible issue resolution.
+> :pushpin: All order responses include Richard's internal identifier. This is to provide a stable constant when handling possible issue resolution.
 
 <br/>
 
@@ -120,7 +121,7 @@ _object_
 
 ### Response
 
-> :warning: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../RESPONSE.md).
+> :pushpin: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../RESPONSE.md).
 
 _object_
 Field | Type | Description
@@ -131,7 +132,7 @@ Field | Type | Description
 `richardId` | _string_ | Richard's internal identifier
 `errors` | _array_<_string_> | Error messages in the event that the order count not be processed
 
-> :ok_hand: All order responses include Richard's internal identifier. This is to provide a stable constant when handling possible issue resolution.
+> :pushpin: All order responses include Richard's internal identifier. This is to provide a stable constant when handling possible issue resolution.
 
 #### 200 Created
 
@@ -168,4 +169,4 @@ HTTP Code: `200` (Success)
 }
 ```
 
-> :warning: ALL responses which are not system errors are returned with a `200` status code. This includes responses to requests where _no acknowledgements_ were accepted. Always check the `accepted` value for each order to know if it succeeded.
+:warning: ALL responses which are not system errors are returned with a `200` status code. This includes responses to requests where _no acknowledgements_ were accepted. Always check the `accepted` value for each order to know if it succeeded.

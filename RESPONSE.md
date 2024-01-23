@@ -16,7 +16,7 @@ Service errors are low level failures which block any further processing of the 
 
 The payload is made up of an `errors` array containing a message line for each error which occurred.
 
-> :ok_hand: In most circumstances service errors generate only one message line
+> :pushpin: In most circumstances service errors generate only one message line
 
 _object_
 Field | Type | Description
@@ -53,6 +53,6 @@ HTTP Code: `500` :scream:
 }
 ```
 
-> :boom: Unknown errors should _never_ occur. If you receive this response please cease sending requests to the service and contact api support immediately.
+:boom: Unknown errors should _never_ occur. If you receive this response please cease sending requests to the service and contact api support immediately.
 
-> :warning: All responses which are not system errors are returned with a `200` status code. This includes responses to requests where _no orders_ were accepted. Always check the `accepted` value for each order to know if it succeeded.
+> :pushpin: All responses which are not system errors are returned with a `200` status code. This includes responses to requests where _no orders_ were accepted. Always check the `accepted` value for each order to know if it succeeded.
