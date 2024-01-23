@@ -5,7 +5,7 @@
 # Documentation Changelog
 + Revisions 1.1.9 (2024/01/23)
 	- Tweaked some wording for uniqueId warning on `create` endpoint
-	- Added `backPrintText1` and `backPrintText2` fields to `create` payload to support reverse printing
+	- Added `backPrintText1` and `backPrintText2` fields to `create` payload to support reverse printing (photo prints)
 	- Changed emoticons to better communicate the style of message
 	- Added explanation concerning empty payload values
 	- Added explicit path to `created` and `shipped` endpoints
