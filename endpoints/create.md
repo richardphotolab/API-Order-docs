@@ -34,7 +34,7 @@ _object_
 | ---------------------------------------------------------------- | :-------: | :------: | :-----: | --------------------- |
 | `header`                                                         | _object_  |   Yes    |    ~    | Order header          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderNumber`                            | _string_  |   Yes    | max 20  | Order Number          |
-| &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId`                               | _string_  |    No    | max 80  | Unique Identifier (*)     |
+| &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId`                               | _string_  |    No    | max 80  | Unique Identifier [(*)](#warning-uniqueId)     |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderReference`                         | _string_  |    No    | max 50  | Reference ID          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderPromoCode`                         | _string_  |    No    | max 50  | Promotion Code        |
 | &nbsp;&nbsp;`shipping`                                           | _object_  |   Yes    |    ~    |                       |
@@ -66,6 +66,7 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`           | _string_  |   Yes    |    ~    | Option Code             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |    ~    | Option Quantity         |
 
+<a id="warning-uniqueId"></a>
 > :warning: NOTE: The value of `uniqueId` provided will be used to check for existing orders. Only if a match is found, will the incoming order will be considered a duplicate, then rejected. Therefore, generating a `uniqueId` on each request will never be rejected. _Always_ generate and _store_ your `uniqueId` with the order, and use it with each request.
 
 ```JSON
