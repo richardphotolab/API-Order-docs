@@ -3,6 +3,11 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.1.9 (2024/01/23)
+	- Tweaked some wording for uniqueId warning on `create` endpoint
+	- Added `backPrintText1` and `backPrintText2` fields to `create` payload to support reverse printing
+	- Changed emoticons to better communicate the style of message
+	- Added explanation concerning empty payload values
 + Revisions 1.1.8 (2023/10/14)
 	- Added `text` field to payload to support an arbitrary string on line items
 + Revisions 1.1.7 (2023/07/27)
