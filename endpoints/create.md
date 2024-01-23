@@ -55,6 +55,8 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`crop`    	   | _array_  |    No    |   URL   | Crop details list (tl-x, tl-y, br-x, br-y)  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`orientation`    | _integer_  |    No    |   URL   | Orientation in degrees      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`text`    | _string_  |    No    |   max 250   | Text string for applicable  use       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`backPrintText1`        | _array_<_object_>  |    No    |    max 35    | Text string for applicable use          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`backPrintText2`        | _array_<_object_>  |    No    |    max 65    | Text string for applicable use          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _array_<_object_>  |    No    |    ~    | Item Options          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_ | _object_  |   No    |   ~  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code` | _string_ | Yes |  ~ | Option Code   |
