@@ -28,15 +28,13 @@ The payload is designed to let you include one or many order registrations, as n
 
 The `uniqueId` should be considered an absolute unique identifier for one of your orders. If you already track base and instance ids for your orders, you can use the _base_ in `uniqueId` and _instance_ in `orderNumber`. If you only have an order number, you may put the order number in both fields.
 
-:warning: It is important to understand that whatever value is in `uniqueId`, will be used to check for existing orders. If a match is found, the incoming order will be considered a duplicate, then rejected.
-
 _object_
 
 | Field                                                            |   Type    | Required | Limits  | Description           |
 | ---------------------------------------------------------------- | :-------: | :------: | :-----: | --------------------- |
 | `header`                                                         | _object_  |   Yes    |    ~    | Order header          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderNumber`                            | _string_  |   Yes    | max 20  | Order Number          |
-| &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId`                               | _string_  |    No    | max 80  | Unique Identifier     |
+| &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId`                               | _string_  |    No    | max 80  | Unique Identifier (*)     |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderReference`                         | _string_  |    No    | max 50  | Reference ID          |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderPromoCode`                         | _string_  |    No    | max 50  | Promotion Code        |
 | &nbsp;&nbsp;`shipping`                                           | _object_  |   Yes    |    ~    |                       |
@@ -65,6 +63,8 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                     | _object_  |    No    |    ~    |						|
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`           | _string_  |   Yes    |    ~    | Option Code             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |    ~    | Option Quantity         |
+
+> :warning: The value of `uniqueId` provided will be used to check for existing orders. If a match is found, the incoming order will be considered a duplicate, then rejected. If a match of the `uniqueId` is not found, the order will be allowed to proceed. Therefore, if you generate your `uniqueId` randomly, on each request, an order will never be rejected, even if it is a duplicate. Always generate and _store_ your `uniqueId` for each order, and use that value for each request.
 
 ```JSON
 [
