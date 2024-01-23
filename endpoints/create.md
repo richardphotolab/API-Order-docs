@@ -74,6 +74,8 @@ _object_
 <a id="warning-backPrintText1"></a>
 > :pushpin: NOTE: The allowed length of `backPrintText1` is calculated based on an assumed maximum `orderNumber` length of twelve(12) characters. If the `orderNumber` is longer, your `backPrintText1` text is at risk of being truncated. (This does not effect `backPrintText2`)
 
+#### Request Example
+
 ```JSON
 [
   {
@@ -138,6 +140,7 @@ _object_
 ]
 ```
 
+:fire: Many fields are not required. However, if the field is present in the payload, it will be validated for proper format, type, and *length*; **empty values are not allowed**. If you do not have a value for a field, simply omit it from the payload.
 <br/>
 
 ### Response
