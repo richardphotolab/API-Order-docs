@@ -66,7 +66,7 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`code`           | _string_  |   Yes    |    ~    | Option Code             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`       | _integer_ |    No    |    ~    | Option Quantity         |
 
-> :warning: The value of `uniqueId` provided will be used to check for existing orders. If a match is found, the incoming order will be considered a duplicate, then rejected. If a match of the `uniqueId` is not found, the order will be allowed to proceed. Therefore, if you generate your `uniqueId` randomly, on each request, an order will never be rejected, even if it is a duplicate. Always generate and _store_ your `uniqueId` for each order, and use that value for each request.
+> :warning: NOTE: The value of `uniqueId` provided will be used to check for existing orders. Only if a match is found, will the incoming order will be considered a duplicate, then rejected. Therefore, generating a `uniqueId` on each request will never be rejected. _Always_ generate and _store_ your `uniqueId` with the order, and use it with each request.
 
 ```JSON
 [
