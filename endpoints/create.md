@@ -55,7 +55,7 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`crop`    	   | _array_  |    No    |   URL   | Crop details list (tl-x, tl-y, br-x, br-y)  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`orientation`    | _integer_  |    No    |   URL   | Orientation in degrees      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`text`    | _string_  |    No    |   max 250   | Text string for applicable  use       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`backPrintText1`        | _array_<_object_>  |    No    |    max 35    | Text string for applicable use          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`backPrintText1`        | _array_<_object_>  |    No    |    max 35    | Text string for applicable [(*)](#warning-backPrintText1) use          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`backPrintText2`        | _array_<_object_>  |    No    |    max 65    | Text string for applicable use          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`options`        | _array_<_object_>  |    No    |    ~    | Item Options          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_ | _object_  |   No    |   ~  |
@@ -68,6 +68,9 @@ _object_
 
 <a id="warning-uniqueId"></a>
 > :warning: NOTE: The value of `uniqueId` provided will be used to check for existing orders. Only if a match is found, will the incoming order will be considered a duplicate, then rejected. Therefore, generating a `uniqueId` on each request will never be rejected. _Always_ generate and _store_ your `uniqueId` with the order, and use it with each request.
+
+<a id="warning-backPrintText1"></a>
+> :warning: NOTE: The allowed length of `backPrintText1` is calculated based on an assumed maximum `orderNumber` length of twelve(12) characters. If the `orderNumber` is longer, your `backPrintText1` text is at risk of being truncated. (This does not effect `backPrintText2`)
 
 ```JSON
 [
@@ -103,7 +106,9 @@ _object_
         "quantity": 1,
         "sourceImage": "https://orders-sf1-api.richardphotolab.com/storage/sample-image.jpg",
         "crop": [0.2, 0.1, 0.95, 0.85],
-        "orientation": 90
+        "orientation": 90,
+		"backPrintText1": "Partner Name",
+		"backPrintText2": "© Gourmet Photography"
       },
       {
         "code": "CP1010P",
