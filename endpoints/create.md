@@ -18,6 +18,8 @@ The Create API is a private REST interface for approved Richard partners to subm
 
 ### Support
 
+:point_right: Check out the [TESTING](TESTING.md) document for more information on testing your integration.
+
 For API support, please email api.support@richardphotolab.com
 
 ## Method: `POST`
@@ -153,6 +155,7 @@ _object_
 Field | Type | Description
 ------|:----:|------------
 `index` | _integer_ | Internally generated reference for each item
+`mode` | _integer_ | Mode in which the request was made (`0`=Test / `1`=Live) |
 `orderNumber` | _string_ \| _null_ | Provided order number for this item
 `uniqueId` | _string_ \| _null_ | Provided unique id for this item
 `accepted` | _integer_ (`0`/`1`) | Value representing if the order was accepted/successful
@@ -167,6 +170,7 @@ Field | Type | Description
   "orders": [
     {
       "index": 0,
+	  "mode": 1,
       "orderNumber": "RP9876",
       "uniqueId": "A991321",
       "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
@@ -176,6 +180,7 @@ Field | Type | Description
     },
     {
       "index": 1,
+	  "mode": 1,
       "orderNumber": "RP9879",
       "uniqueId": null,
       "richardId": "rpl-oae-hy9fec4-a46c-4ead-99c2-2404b9aeG4zS",
@@ -188,6 +193,7 @@ Field | Type | Description
     },
     {
       "index": 2,
+	  "mode": 1,
       "orderNumber": "RP9880",
       "uniqueId": "A991328",
       "richardId": "rpl-oae-rsb9fec4-c76c-7fad-99c2-3724b9aeS9wM",

@@ -3,6 +3,10 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.2 (2024/04/11)
+	- Added `mode` field to `created` and `shipped` endpoint responses
+	- Added new [`TESTING`](TESTING.md) document to explain test mode
+	- Updated `create` and `shipped` endpoints with copy/link to `TESTING` document
 + Revisions 1.1.9 (2024/01/23)
 	- Tweaked some wording for uniqueId warning on `create` endpoint
 	- Added `backPrintText1` and `backPrintText2` fields to `create` payload to support reverse printing (photo prints)

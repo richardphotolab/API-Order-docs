@@ -30,6 +30,8 @@ The notification will only be removed from the list once it has been acknowledge
 
 ### Support
 
+:point_right: Check out the [TESTING](TESTING.md) document for more information on testing your integration.
+
 For API support, please email api.support@richardphotolab.com
 
 ## Method: `GET`
@@ -48,6 +50,7 @@ This method returns all orders currently marked as shipped _and_ not marked as r
 | ----- |:----:|-------------|
 | `orders` | _array_ | List of orders |
 | &nbsp;&nbsp;&nbsp;&nbsp;`index` | _integer_ | Internally generated index for each item |
+| &nbsp;&nbsp;&nbsp;&nbsp;`mode` | _integer_ | Mode in which the request was made (`0`=Test / `1`=Live) |
 | &nbsp;&nbsp;&nbsp;&nbsp;`richardId` | _string_ | Richard's internal identifier |
 | &nbsp;&nbsp;&nbsp;&nbsp;`uniqueId` | _string_ \| _null_ | Provided unique id for this item |
 | &nbsp;&nbsp;&nbsp;&nbsp;`orderNumber` | _string_ \| _null_ | Provided order number for this item |
@@ -69,6 +72,7 @@ HTTP Code: `200` (Success)
   "orders": [
 	{
       "index": 0,
+	  "mode": 1,
       "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
       "uniqueId": "A991321",
       "orderNumber": "RP9876",
@@ -81,6 +85,7 @@ HTTP Code: `200` (Success)
     },
     {
       "index": 1,
+	  "mode": 1,
       "orderNumber": null,
       "uniqueId": null,
       "richardId": null,
@@ -129,6 +134,7 @@ _object_
 Field | Type | Description
 ------|:----:|------------
 `index` | _integer_ | Internally generated reference for each item
+`mode` | _integer_ | Mode in which the request was made (`0`=Test / `1`=Live) |
 `uniqueId` | _string_ \| _null_ | Provided unique id for this item
 `accepted` | _integer_ (`0`/`1`) | Value representing if the order was accepted/successful
 `richardId` | _string_ | Richard's internal identifier
@@ -145,6 +151,7 @@ HTTP Code: `200` (Success)
   "orders": [
     {
       "index": 0,
+	  "mode": 1,
       "richardId": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
       "uniqueId": "A991321",
       "accepted": 1,
@@ -152,6 +159,7 @@ HTTP Code: `200` (Success)
     },
     {
       "index": 1,
+	  "mode": 1,
       "richardId": "rpl-oae-hy9fec4-a46c-4ead-99c2-2404b9aeG4zS",
       "uniqueId": null,
       "accepted": 0,
@@ -161,6 +169,7 @@ HTTP Code: `200` (Success)
     },
     {
       "index": 2,
+	  "mode": 1,
       "uniqueId": "A991328",
       "richardId": "rpl-oae-rsb9fec4-c76c-7fad-99c2-3724b9aeS9wM",
       "accepted": 1,

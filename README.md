@@ -9,13 +9,13 @@ rev 1.1.9 ([changelog](CHANGELOG.md))
 ## General
 - [Request Basics](REQUEST.md)
 - [Response Basics](RESPONSE.md)
+- [Testing](TESTING.md)
 
 ## Services
 
 - Order
   - [Create](endpoints/create.md) (create new orders)
   - [Shipped](endpoints/shipped.md) (get pending shipped orders)
-
 
 ### Support
 
