@@ -74,13 +74,14 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`quantity`                                                 |     _integer_     |    No    |    ~    | Option Quantity                 |                                                            |
 
 <a id="warning-uniqueId"></a>
-> :warning: **WARNING (UNIQUE ID)**<br>
+> :warning: **WARNING** (UNIQUE ID)<br>
 > The value of `uniqueId` provided will be used to check for existing orders. Only if a match is found, will the incoming order be considered a duplicate; then rejected.<br>
 > 
 > :boom: Do not generate a random `uniqueId` for each order. Use a value that is unique to your system, such as an internal id. If you do not provide a valid unique id, then duplicate orders will not be detected and will be printed again.
 
 <a id="warning-backPrintText1"></a>
-> :pushpin: Concerning **BACKPRINTTEXT**: The allowed length of `backPrintText1` is calculated based on an assumed maximum `orderNumber` length of twelve(12) characters. If the `orderNumber` is longer, your `backPrintText1` text is at risk of being truncated. (This does not affect `backPrintText2`)
+> :pushpin: **NOTE** (BACKPRINTTEXT)<br>
+> The allowed length of `backPrintText1` is calculated based on an assumed maximum `orderNumber` length of twelve(12) characters. If the `orderNumber` is longer, your `backPrintText1` text is at risk of being truncated. (This does not affect `backPrintText2`)
 
 #### Request Example
 
