@@ -4,11 +4,11 @@
 
 # Documentation Changelog
 + Revisions 1.2.1 (2024/12/09)
-	- Moved struct notes to their own column
-    - Added a note for `sourceImage`
-    - Revised copy & formatting in several notes across `create` endpoint
-    - Added warning note concerning error messages
-    - Smalls tweaks to one of the examples
+	- Moved struct notes to their own column (`create` endpoint)
+    - Added a note for `sourceImage` (`create` endpoint)
+    - Revised copy & formatting in several notes (`create` endpoint)
+    - Added warning note concerning error messages (`create` endpoint)
+    - Smalls tweaks to one of the examples (`create` endpoint)
 + Revisions 1.2 (2024/04/11)
 	- Added `mode` field to `created` and `shipped` endpoint responses
 	- Added new [`TESTING`](TESTING.md) document to explain test mode
