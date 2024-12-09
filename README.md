@@ -4,7 +4,7 @@
 
 # Richard Partner API Documentation
 
-rev 1.2 ([changelog](CHANGELOG.md))
+rev 1.2.1 ([changelog](CHANGELOG.md))
 
 ## General
 - [Request Basics](REQUEST.md)
