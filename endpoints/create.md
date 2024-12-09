@@ -28,11 +28,11 @@ For API support, please email api.support@richardphotolab.com
 
 > :warning: This information is specific to this endpoint. You must **_also_** understand the [basic REQUEST documentation](../REQUEST.md).
 
-The payload is designed to let you include one or many order registrations, as needed. A payload consists of a base<br/>
+The payload is designed to let you include one or many order registrations, as needed. A payload consists of a base
 container _array_ containing order _objects_. There must be a minimum of one(1) order, and a maximum of fifty(50).
 
-The `uniqueId` should be considered an absolute unique identifier for one of your orders. If you already track base<br/>
-and instance ids for your orders, you can use the _base_ in `uniqueId` and _instance_ in `orderNumber`. If you only have<br/>
+The `uniqueId` should be considered an absolute unique identifier for one of your orders. If you already track base
+and instance ids for your orders, you can use the _base_ in `uniqueId` and _instance_ in `orderNumber`. If you only have
 an order number, you may put the order number in both fields.
 
 _object_
@@ -75,15 +75,12 @@ _object_
 
 <a id="warning-uniqueId"></a>
 > :warning: **WARNING (UNIQUE ID)**<br>
-> The value of `uniqueId` provided will be used to check for existing orders. Only if a match is found, will the incoming order be considered<br>
-> a duplicate; then rejected.<br>
+> The value of `uniqueId` provided will be used to check for existing orders. Only if a match is found, will the incoming order be considered a duplicate; then rejected.<br>
 > 
-> :boom: Do not generate a random `uniqueId` for each order. Use a value that is unique to your system, such as an internal id.<br>
-> If you do not provide a valid unique id, then duplicate orders will not be detected and will be printed again.
+> :boom: Do not generate a random `uniqueId` for each order. Use a value that is unique to your system, such as an internal id. If you do not provide a valid unique id, then duplicate orders will not be detected and will be printed again.
 
 <a id="warning-backPrintText1"></a>
-> :pushpin: Concerning **BACKPRINTTEXT**: The allowed length of `backPrintText1` is calculated based on an assumed maximum `orderNumber` length of twelve(12) characters.<br/>
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the `orderNumber` is longer, your `backPrintText1` text is at risk of being truncated. (This does not effect `backPrintText2`)
+> :pushpin: Concerning **BACKPRINTTEXT**: The allowed length of `backPrintText1` is calculated based on an assumed maximum `orderNumber` length of twelve(12) characters. If the `orderNumber` is longer, your `backPrintText1` text is at risk of being truncated. (This does not affect `backPrintText2`)
 
 #### Request Example
 
@@ -151,8 +148,9 @@ _object_
 ]
 ```
 
-> :fire: **IMPORTANT**<br> Many fields are not required. However, _if the field is present in the payload_, it will be validated for proper format, type, and *length*;<br/>
-> **empty values are not allowed**. If you do not have a value for a field, simply omit it from the payload.
+> :fire: **IMPORTANT**<br>
+> Many fields are not required. However, _if the field is present in the payload_, it will be validated for proper format, type, and *length*; **empty values are not allowed**. If you do not have a value for a field, simply omit it from the payload.
+
 <br/>
 
 ## Response
@@ -218,9 +216,9 @@ _object_
 ```
 <a id="warning-errorMessages"></a>
 > :fire: **NOTE**<br>
-> Error messages will vary and are _intended_ for human consumption. Therefore, they should _not_ be used programmatically.<br>
-> Always check the `accepted` value for each order to know if it succeeded.
+> Error messages will vary and are _intended_ for human consumption. Therefore, they should _not_ be used programmatically.
+Always check the `accepted` value for each order to know if it succeeded.
 
 > :warning: **WARNING**<br>
-> All responses which are not system errors are returned with a `200` status code. This includes responses to requests<br/>
-> where _no orders_ were accepted. Always check the `accepted` value for each order to know if it succeeded.
+> All responses which are not system errors are returned with a `200` status code. This includes responses to requests
+where _no orders_ were accepted. Always check the `accepted` value for each order to know if it succeeded.
