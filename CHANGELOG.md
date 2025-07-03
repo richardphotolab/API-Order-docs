@@ -3,6 +3,8 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.3 (2025/07/02)
+  	- Increased maximum length on `code` fields
 + Revisions 1.2.1 (2024/12/09)
 	- Moved struct notes to their own column (`create` endpoint)
     - Added a note for `sourceImage` (`create` endpoint)
