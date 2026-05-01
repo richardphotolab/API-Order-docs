@@ -16,6 +16,7 @@ rev 1.4 ([changelog](CHANGELOG.md))
 - Order
   - [Create](endpoints/create.md) (create new orders)
   - [Shipped](endpoints/shipped.md) (get pending shipped orders)
+  - [Tracking](endpoints/tracking.md) (get tracking info for shipped orders)
 
 ### Support
 
