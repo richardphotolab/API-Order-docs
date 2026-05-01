@@ -3,6 +3,8 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.4 (2026/05/01)
+	- Added new [`Tracking`](endpoints/tracking.md) endpoint documentation (`POST /tracking`)
 + Revisions 1.3 (2025/07/02)
   	- Increased maximum length on `code` fields
 + Revisions 1.2.1 (2024/12/09)
