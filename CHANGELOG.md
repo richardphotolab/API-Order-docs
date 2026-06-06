@@ -3,6 +3,12 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.5 (2026/06/05)
+	- Revised the [`Tracking`](endpoints/tracking.md) response: the `tracking` object is now a single **normalized, carrier-agnostic** schema (same shape across USPS, UPS, Stamps.com)
+	- `status` is now a flat string from a fixed [Status Values](endpoints/tracking.md#status-values) set (replaces the previous `status` object and `delivery` group)
+	- Added `service_type`, `is_delivered`, `is_exception`, `ship_date`, `estimated_delivery` (`begins`/`ends` window), `actual_delivery_date`, `origin`, `signed_by`, and structured `events`
+	- Address fields renamed to `province`/`postal_code`/`country_code` and gained `street`/`street2`
+	- Added optional `with_raw` request field to expose the unmodified carrier payload under `tracking.raw` (omitted by default)
 + Revisions 1.4 (2026/05/01)
 	- Added new [`Tracking`](endpoints/tracking.md) endpoint documentation (`POST /tracking`)
 + Revisions 1.3 (2025/07/02)
