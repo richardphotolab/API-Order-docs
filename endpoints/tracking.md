@@ -33,8 +33,6 @@ The Tracking API is a private REST interface for approved Richard partners to lo
 3. Richard looks up the stored shipment for that order, resolves the carrier and tracking number itself, and queries the carrier on your behalf via the Carrier Communication Service (CCS).
 4. The carrier's response is normalized into a single, carrier-agnostic schema and returned to you.
 
-> :bulb: You no longer send the tracking number or carrier in the request — Richard already has them from when you retrieved the shipment via `/shipped`. The only field the endpoint needs is the `richard_id`, which identifies the order and proves you own it.
-
 Responses are **cached for 5 minutes** on a per-partner, per-order basis. Repeated requests within that window return the cached result instantly (indicated by `"cached": true` in the response). This is transparent — the shape of the response is always the same.
 
 > :pushpin: The `/tracking` endpoint accepts **`POST` only**. `GET` requests are not supported.
@@ -75,7 +73,7 @@ _object_
 
 | Field         |    Type    | Required | Limits  | Description                                                                             |
 | ------------- | :--------: | :------: | :-----: | --------------------------------------------------------------------------------------- |
-| `richard_id`  | _string_   |   Yes    |    ~    | Richard's internal order identifier (returned by `/create` and `/shipped`). Identifies the order to look up and proves you own it. |
+| `richard_id`  | _string_   |   Yes    |    ~    | Richard's internal order identifier (returned by `/create` and `/shipped`). Identifies the order to look up. |
 | `with_raw`    | _boolean_  |    No    |    ~    | When `true`, the unmodified carrier payload is included under `tracking.raw`. Defaults to `false`, in which case the `raw` key is **omitted entirely**. See [The `raw` Field](#the-raw-field). |
 
 > :pushpin: The carrier and tracking number are **not** request fields — Richard resolves both from the order's stored shipment record. Any such keys you include in the body are ignored. See [How It Works](#how-it-works).
@@ -91,8 +89,8 @@ _object_
 
 > :fire: **Why is only `richard_id` needed?**
 >
-> - `richard_id` identifies the order **and** verifies that **you own it** — the lookup is scoped to your partner account, so one partner cannot query another partner's shipment by guessing an identifier.
-> - The carrier and tracking number are resolved server-side from the shipment record Richard stored when you retrieved the order via [`/shipped`](shipped.md). You do not supply them, and supplying them has no effect.
+> - `richard_id` identifies the order **and** verifies that **you own it** — the lookup is scoped to your partner account.
+> - The carrier and tracking number are resolved server-side from the shipment record Richard stored when you retrieved the order via [`/shipped`](shipped.md).
 
 ---
 
@@ -162,7 +160,6 @@ The `status` field (both top-level and per-event) is always one of these values:
 
 | Value                | Meaning                                                                       |
 | -------------------- | ----------------------------------------------------------------------------- |
-| `label_created`      | A shipping label has been created; the carrier has not yet taken possession.   |
 | `accepted`           | The carrier has accepted / picked up the package.                              |
 | `in_transit`         | The package is moving through the carrier network.                             |
 | `out_for_delivery`   | The package is out for delivery today.                                         |
@@ -268,15 +265,13 @@ The response shape is identical — only `"cached": true` differs.
 
 #### The `raw` Field
 
-By default the `raw` field is **omitted entirely** from the `tracking` object. To receive it, send `"with_raw": true` in your request. When present, `raw` contains the carrier's **unmodified** response payload exactly as Richard received it from the carrier (passed through by the Carrier Communication Service).
+By default the `raw` field is **omitted entirely** from the `tracking` object. To receive it, send `"with_raw": true` in your request. When present, `raw` contains the carrier's **unmodified** response payload exactly as Richard received it from the carrier.
 
-> :warning: **`raw` is for debugging and support only — do not build your integration on it.**
+> :warning: **`raw` is outside of Richard's control; use with caution.**
 >
-> - Its shape is **carrier-specific** and completely different between USPS, UPS, and Stamps.com.
+> - Its shape is **carrier-specific** and completely different between USPS, UPS, FedEx and Stamps.com.
 > - It is **not versioned** and may change at any time without notice when a carrier changes their API.
-> - All the data you need for normal operation is already in the normalized fields above.
->
-> Use it when you are diagnosing a discrepancy or when api support asks you to include it. Nothing in `raw` is part of the stable contract.
+> - All the data you need for normal operation should already in the normalized fields above.
 
 > :pushpin: Raw and non-raw responses are cached separately, so toggling `with_raw` always reflects your current request rather than a previously cached variant.
 
