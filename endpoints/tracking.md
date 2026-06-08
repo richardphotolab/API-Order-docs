@@ -2,7 +2,7 @@
   <img width="140" height="102" src="https://gfs-na.richardphotolab.com/img/logo/rpl-logo.png">
 </p>
 
-> :construction: **This endpoint is currently under development and is not yet available.** Do not attempt to integrate against it at this time. This documentation is provided as a preview only — details are subject to change. Contact api.support@richardphotolab.com if you have questions.
+> :construction: **This endpoint is currently in beta.**. Contact api.support@richardphotolab.com if you have questions.
 
 ---
 
