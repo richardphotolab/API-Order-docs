@@ -5,38 +5,90 @@
 # Testing
 
 - [Overview](#overview)
-  - [Eligibility](#eligibility)
-- [Process](#process)
-  - [Order Creation](#order-creation)
-  - [Order Shipped](#order-shipped)
-
+  - [The Testbed Environment](#the-testbed-environment)
+  - [Authentication](#authentication)
+  - [Test Mode &amp; the `mode` Field](#test-mode--the-mode-field)
+- [Order Lifecycle in the Testbed](#order-lifecycle-in-the-testbed)
+  - [Creating Orders](#creating-orders)
+  - [Shipping Your Orders](#shipping-your-orders)
+  - [Retrieving Shipped Notifications](#retrieving-shipped-notifications)
+  - [Tracking](#tracking)
+- [Managing Your Testbed Data](#managing-your-testbed-data)
 
 ## Overview
 
-A Richard contact will provide you with a testing API token. This token will allow you to test your integration with the Richard API. The testing environment is a mirror of the live environment, with the exception that no orders will be processed or shipped. This allows you to test your integration without the risk of creating real orders.
+Richard provides a dedicated **Testbed** environment so you can build and exercise your integration end-to-end without the risk of creating real orders. It is a complete mirror of the live API, with one crucial difference: **nothing you send is ever produced or shipped for real.** Orders, shipments, and tracking are all simulated.
 
-### Eligibility
+### The Testbed Environment
 
-A request is considered a test if it meets _any_ of the following criteria:
+A Richard contact will provide you with a testing API token and the testbed base URL.
 
-- The partner account is in test mode (managed by Richard).
-- A test token is used for connecting (`rmd` value in the token).
-- The `rpl-x-mode` header is set to `0` (zero).
+> :pushpin: The testbed is reached at a different base URL than the live API. Both addresses are provided by your Richard technical contact. Point your integration at the testbed URL while developing, then switch to the live URL when you go to production.
 
-## Process
+The endpoints, request payloads, and response shapes are identical to live. Code written against the testbed will work unchanged against the live API.
 
-The API will respond with a `mode` field in response payloads. When processing takes place in test mode, this value  will be `0`. This allows you to verify that your request was processed in the correct mode.
+### Authentication
 
-### Order Creation
+Authentication is the same as the live API — supply your token in the `Authorization` header using the `Bearer` prefix. Your existing partner token works against the testbed; no new credentials are required.
 
-When posting orders under a test mode, the API will automatically generate stand-in shipment data, and mark the order as complete. This facilitates testing of the `shipped` endpoint.
+:point_right: See [Request Basics](REQUEST.md#authentication) for details.
 
-:point_right: Please see the [Order/Create](endpoints/create.md) documentation for more information.
+### Test Mode &amp; the `mode` Field
 
-### Order Shipped
+In the live API, an individual request can be flagged as a test (via a test token or the `rpl-x-mode` header). **In the testbed this is automatic** — every request is processed as a test, so you never need a special token value or header.
 
-When polling the `shipped` endpoint using test mode, you will receive a list of orders which were created in test mode. When you acknowledge these orders, they will be flagged as such and removed from the list. This allows you to test the process of receiving and acknowledging shipped orders in the same manner as live orders.
+Endpoints that support it still return a `mode` field so you can confirm how a request was handled. In the testbed this value is always `0` (test).
 
-> :pushpin: Remember, when acknowledging orders you are still required to use the provided `richardId`. This applies to test orders as well.
+| `mode` | Meaning |
+| :----: | ------- |
+| `0`    | Test    |
+| `1`    | Live    |
 
-:point_right: Please see the [Order/Shipped](endpoints/shipped.md) documentation for more information.
+## Order Lifecycle in the Testbed
+
+The testbed walks an order through the same lifecycle as production, so you can rehearse every step of your integration:
+
+```
+create  →  (ships)  →  appears in /shipped  →  you acknowledge  →  removed
+```
+
+### Creating Orders
+
+Create orders by calling `POST /create` exactly as you would in production. The order is stored as a test order (`mode` `0`) with a status of `pending`.
+
+:point_right: See the [Order/Create](endpoints/create.md) documentation for the request format.
+
+### Shipping Your Orders
+
+There are two ways an order gets shipped in the testbed — pick whichever suits the scenario you are testing:
+
+- **Automatic (default).** Shortly after creation, the testbed simulates Richard fulfilling and shipping the order: it generates stand-in carrier and tracking data and marks the order as shipped. The order then appears in your `GET /shipped` results. You can adjust the delay or turn auto-shipping off entirely — see [Managing Your Testbed Data](#managing-your-testbed-data).
+- **Manual.** Drive an order through its lifecycle yourself using the testbed dev endpoints. You can ship an order on demand, reset it back to `pending`, or delete it outright — handy for replaying a specific order number or testing a precise sequence of events.
+
+> :pushpin: Whichever path you choose, the generated shipment data (carrier, service, tracking number) is simulated. It is shaped exactly like real shipment data so your parsing logic gets a faithful workout.
+
+### Retrieving Shipped Notifications
+
+Poll `GET /shipped` to receive the testbed orders that have shipped, just as you would in production. When you acknowledge an order via `POST /shipped`, it is flagged as received and removed from the pending list.
+
+> :pushpin: Acknowledging an order still requires its `richardId`, exactly as in live. This `richardId` is present in the original `GET /shipped` response.
+
+:point_right: See the [Order/Shipped](endpoints/shipped.md) documentation for more information.
+
+### Tracking
+
+`POST /tracking` returns **simulated** tracking information for testbed shipments. The response uses the same normalized, carrier-agnostic schema as the live endpoint, so you can build and verify your tracking integration against realistic data.
+
+:point_right: See the [Order/Tracking](endpoints/tracking.md) documentation for the response schema.
+
+## Managing Your Testbed Data
+
+The testbed exposes a small set of **dev endpoints** that let you inspect and control your own test orders — list and view orders, ship/reset/delete them on demand, and configure auto-ship behavior. These are the tools you use to set up and tear down scenarios while developing.
+
+:point_right: See the [Testbed Dev Endpoints](endpoints/dev.md) documentation for the full reference.
+
+> :pushpin: The dev endpoints exist **only** in the testbed environment. They are not present on the live API.
+
+---
+
+For API support, please email api.support@richardphotolab.com

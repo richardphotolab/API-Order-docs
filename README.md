@@ -4,7 +4,7 @@
 
 # Richard Partner API Documentation
 
-rev 1.5 ([changelog](CHANGELOG.md))
+rev 1.6 ([changelog](CHANGELOG.md))
 
 ## General
 - [Request Basics](REQUEST.md)
@@ -17,6 +17,10 @@ rev 1.5 ([changelog](CHANGELOG.md))
   - [Create](endpoints/create.md) (create new orders)
   - [Shipped](endpoints/shipped.md) (get pending shipped orders)
   - [Tracking](endpoints/tracking.md) (get tracking info for shipped orders)
+
+## Testbed
+
+- [Dev Endpoints](endpoints/dev.md) (manage your test data: list/ship/reset/delete orders, configure auto-ship)
 
 ### Support
 
