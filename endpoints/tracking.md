@@ -30,7 +30,7 @@ The Tracking API is a private REST interface for approved Richard partners to lo
 
 1. After an order ships, you retrieve the shipment details from the [`/shipped`](shipped.md) endpoint. Doing so records the carrier and tracking number against the order inside Richard's system.
 2. When you want to check the status of a shipment, `POST` to `/tracking` with **only** the `richard_id`.
-3. Richard looks up the stored shipment for that order, resolves the carrier and tracking number itself, and queries the carrier on your behalf via the Carrier Communication Service (CCS).
+3. Richard looks up the stored shipment for that order, resolves the carrier and tracking number itself, and queries the carrier on your behalf.
 4. The carrier's response is normalized into a single, carrier-agnostic schema and returned to you.
 
 Responses are **cached for 5 minutes** on a per-partner, per-order basis. Repeated requests within that window return the cached result instantly (indicated by `"cached": true` in the response). This is transparent — the shape of the response is always the same.
@@ -43,7 +43,7 @@ Tracking only works for orders Richard has a **shipment record** for. That recor
 
 If you call `/tracking` for an order that has no shipment record yet (e.g. it has not shipped, or you have never pulled it from `/shipped`), the request fails with `422` — see the [Error Reference](#error-reference). The fix is always the same: fetch the order from `/shipped` first, then retry.
 
-This applies to **both test and live orders**. Test-mode orders are routed to CCS sandbox carrier accounts (which return simulated tracking data), while live orders query the real carrier — but in both cases the carrier and tracking number come from the stored shipment record, never from your request.
+In every case, the carrier and tracking number come from the stored shipment record, never from your request. In the [testbed](../TESTING.md), that record holds simulated data, so `/tracking` returns simulated tracking information.
 
 ### Support
 
@@ -114,7 +114,7 @@ _object_
 
 #### `tracking` Object
 
-The `tracking` object is a **carrier-agnostic, normalized** view of the shipment, produced by Richard's Carrier Communication Service (CCS). The same field set is returned regardless of which carrier actually fulfilled the shipment — USPS, UPS, and Stamps.com responses are all mapped into this single schema, so you only have to integrate once. Richard returns this normalized object verbatim; carrier-specific quirks are absorbed by the normalization layer before they reach you.
+The `tracking` object is a **carrier-agnostic, normalized** view of the shipment, produced by Richard. The same field set is returned regardless of which carrier actually fulfilled the shipment — USPS, UPS, and Stamps.com responses are all mapped into this single schema, so you only have to integrate once. Richard returns this normalized object verbatim; carrier-specific quirks are absorbed by the normalization layer before they reach you.
 
 | Field                  |         Type         | Description                                                                                          |
 | ---------------------- | :------------------: | ---------------------------------------------------------------------------------------------------- |

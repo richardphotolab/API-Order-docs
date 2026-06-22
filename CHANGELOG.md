@@ -5,7 +5,7 @@
 # Documentation Changelog
 + Revisions 1.6 (2026/06/21)
 	- Rewrote [`TESTING`](TESTING.md) around the new **Testbed** environment: every request is automatically treated as a test, orders auto-ship (optionally after a delay) or are driven manually, and `/shipped` & `/tracking` serve simulated data
-	- Replaced the previous test-mode eligibility criteria (test token / `rpl-x-mode` header); these are no longer needed in the testbed
+	- Testing is now done entirely against the dedicated testbed environment, which automatically processes every request as a test — no per-request opt-in is required
 	- Added [`Testbed Dev Endpoints`](endpoints/dev.md) documentation covering `GET /dev/orders`, `GET /dev/order/{richardId}`, `POST /dev/order/{richardId}/ship`, `POST /dev/order/{richardId}/reset`, `DELETE /dev/order/{richardId}`, `GET /dev/partner/show`, and `PATCH /dev/partner/options`
 + Revisions 1.5 (2026/06/05)
 	- Revised the [`Tracking`](endpoints/tracking.md) response: the `tracking` object is now a single **normalized, carrier-agnostic** schema (same shape across USPS, UPS, Stamps.com)

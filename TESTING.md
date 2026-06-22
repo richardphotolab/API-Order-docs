@@ -7,7 +7,7 @@
 - [Overview](#overview)
   - [The Testbed Environment](#the-testbed-environment)
   - [Authentication](#authentication)
-  - [Test Mode &amp; the `mode` Field](#test-mode--the-mode-field)
+  - [The `mode` Field](#the-mode-field)
 - [Order Lifecycle in the Testbed](#order-lifecycle-in-the-testbed)
   - [Creating Orders](#creating-orders)
   - [Shipping Your Orders](#shipping-your-orders)
@@ -33,11 +33,11 @@ Authentication is the same as the live API — supply your token in the `Authori
 
 :point_right: See [Request Basics](REQUEST.md#authentication) for details.
 
-### Test Mode &amp; the `mode` Field
+### The `mode` Field
 
-In the live API, an individual request can be flagged as a test (via a test token or the `rpl-x-mode` header). **In the testbed this is automatic** — every request is processed as a test, so you never need a special token value or header.
+The testbed processes **every** request as a test — there is nothing to opt into and no special token value or header to set.
 
-Endpoints that support it still return a `mode` field so you can confirm how a request was handled. In the testbed this value is always `0` (test).
+Endpoints that support it return a `mode` field so you can confirm which environment handled your request. In the testbed this value is always `0` (test); the live API always returns `1`.
 
 | `mode` | Meaning |
 | :----: | ------- |
