@@ -275,6 +275,8 @@ By default the `raw` field is **omitted entirely** from the `tracking` object. T
 
 > :pushpin: Raw and non-raw responses are cached separately, so toggling `with_raw` always reflects your current request rather than a previously cached variant.
 
+> :test_tube: **Testing with `with_raw` on the testbed:** When you send `with_raw: true` in the testbed, the `raw` field is present and is an object, but its contents are a lightweight stub — it contains only `carrier`, `tracking_number`, and a fixed `status` string drawn from the stored shipment record. This is enough to verify that your integration correctly handles the presence of `raw`, but it does not replicate the actual shape a real carrier returns. Carrier-specific `raw` payloads differ significantly between USPS, UPS, and Stamps.com, and none of that structure can be faithfully simulated. To understand what `raw` looks like for a specific carrier in production, consult that carrier's public tracking API documentation.
+
 ```json
 {
   "richard_id": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
