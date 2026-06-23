@@ -25,6 +25,8 @@ A Richard contact will provide you with a testing API token and the testbed base
 
 > :pushpin: The testbed is reached at a different base URL than the live API. Both addresses are provided by your Richard technical contact. Point your integration at the testbed URL while developing, then switch to the live URL when you go to production.
 
+> :warning: **The testbed is completely self-contained.** Only orders you have created on the testbed are visible there — the testbed never connects to the live system, and nothing from the live system is available in the testbed. Data flows in neither direction between the two environments.
+
 The endpoints, request payloads, and response shapes are identical to live. Code written against the testbed will work unchanged against the live API.
 
 ### Authentication
