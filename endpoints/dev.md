@@ -12,6 +12,8 @@
   - [List Orders — `GET /dev/orders`](#list-orders--get-devorders)
   - [Show Order — `GET /dev/order/{richardId}`](#show-order--get-devorderrichardid)
   - [Ship Order — `POST /dev/order/{richardId}/ship`](#ship-order--post-devorderrichardidship)
+  - [Mark Delivered — `POST /dev/order/{richardId}/tracking/delivered`](#mark-delivered--post-devorderrichardidtrackingdelivered)
+  - [Mark Errored — `POST /dev/order/{richardId}/tracking/errored`](#mark-errored--post-devorderrichardidtrackingerrored)
   - [Reset Order — `POST /dev/order/{richardId}/reset`](#reset-order--post-devorderrichardidreset)
   - [Delete Order — `DELETE /dev/order/{richardId}`](#delete-order--delete-devorderrichardid)
 - [Partner](#partner)
@@ -64,6 +66,7 @@ Every response is JSON and always includes an `errors` array (empty on success),
 | `carrier_service` | _string_ \| _null_ | Simulated carrier service (e.g. `UPS Ground`) |
 | `tracking_number` |      _string_      | Simulated tracking number                    |
 | `shipped_at`      |      _string_      | When the order shipped (ISO8601)             |
+| `tracking_status` |      _string_      | Forced tracking state used to build the `/tracking` stub: `in_transit` (default), `delivered`, or `exception` |
 | `created_at`      |      _string_      | When the shipment record was created (ISO8601) |
 
 ## Orders
@@ -167,6 +170,92 @@ This action is **idempotent** — if the order is already shipped, the existing 
     "created_at": "2026-06-21T13:28:12.000000Z"
   },
   "errors": []
+}
+```
+
+### Mark Delivered — `POST /dev/order/{richardId}/tracking/delivered`
+
+Forces the order's shipment into the `delivered` tracking state, so subsequent calls to [`/tracking`](tracking.md) return a `delivered` stub (`status: "delivered"`, `is_delivered: true`, `actual_delivery_date` populated). Use this to test how your integration handles a completed delivery without waiting for a real shipment to arrive.
+
+The order must already have a shipment record — ship it first via [`POST /dev/order/{richardId}/ship`](#ship-order--post-devorderrichardidship).
+
+| Parameter    |   Type   | Description                                       |
+| ------------ | :------: | -------------------------------------------------- |
+| `richardId`  | _string_ | The `richard_id` of the order to mark as delivered |
+
+**Response** — HTTP `200`
+
+```JSON
+{
+  "order": {
+    "id": 42,
+    "created_at": "2026-06-21T13:20:01.000000Z",
+    "mode": 0,
+    "order_number": "PO12345678",
+    "unique_id": "A991321",
+    "status": "shipped",
+    "richard_id": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6"
+  },
+  "shipment": {
+    "carrier": "ups",
+    "carrier_service": "UPS Ground",
+    "tracking_number": "1Z001985YW99744790",
+    "shipped_at": "2026-06-21T13:28:12.000000Z",
+    "tracking_status": "delivered",
+    "created_at": "2026-06-21T13:28:12.000000Z"
+  },
+  "errors": []
+}
+```
+
+**No shipment record yet** — HTTP `422`
+
+```JSON
+{
+  "errors": [ "No shipping record found for this order. Ship it first via POST /dev/order/{richard_id}/ship." ]
+}
+```
+
+### Mark Errored — `POST /dev/order/{richardId}/tracking/errored`
+
+Forces the order's shipment into the `exception` tracking state, so subsequent calls to [`/tracking`](tracking.md) return an `exception` stub (`status: "exception"`, `is_exception: true`). Use this to test how your integration handles a delivery exception (delay, damage, address issue, etc.).
+
+The order must already have a shipment record — ship it first via [`POST /dev/order/{richardId}/ship`](#ship-order--post-devorderrichardidship).
+
+| Parameter    |   Type   | Description                                     |
+| ------------ | :------: | ------------------------------------------------ |
+| `richardId`  | _string_ | The `richard_id` of the order to mark as errored |
+
+**Response** — HTTP `200`
+
+```JSON
+{
+  "order": {
+    "id": 42,
+    "created_at": "2026-06-21T13:20:01.000000Z",
+    "mode": 0,
+    "order_number": "PO12345678",
+    "unique_id": "A991321",
+    "status": "shipped",
+    "richard_id": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6"
+  },
+  "shipment": {
+    "carrier": "ups",
+    "carrier_service": "UPS Ground",
+    "tracking_number": "1Z001985YW99744790",
+    "shipped_at": "2026-06-21T13:28:12.000000Z",
+    "tracking_status": "exception",
+    "created_at": "2026-06-21T13:28:12.000000Z"
+  },
+  "errors": []
+}
+```
+
+**No shipment record yet** — HTTP `422`
+
+```JSON
+{
+  "errors": [ "No shipping record found for this order. Ship it first via POST /dev/order/{richard_id}/ship." ]
 }
 ```
 

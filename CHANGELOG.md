@@ -3,6 +3,10 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.7 (2026/07/01)
+	- Fixed the testbed `/tracking` stub, which had drifted from the normalized schema documented in revision 1.5 — it now returns the same flat `status` string, `is_delivered`/`is_exception` flags, and top-level `destination`/`estimated_delivery` shape as production
+	- Added two new [`Testbed Dev Endpoints`](endpoints/dev.md): `POST /dev/order/{richardId}/tracking/delivered` and `POST /dev/order/{richardId}/tracking/errored`, letting you force a shipment's tracking state so `/tracking` returns a `delivered` or `exception` stub on demand
+	- Added `tracking_status` to the dev endpoints' Shipment object (`in_transit` | `delivered` | `exception`)
 + Revisions 1.6 (2026/06/21)
 	- Rewrote [`TESTING`](TESTING.md) around the new **Testbed** environment: every request is automatically treated as a test, orders auto-ship (optionally after a delay) or are driven manually, and `/shipped` & `/tracking` serve simulated data
 	- Testing is now done entirely against the dedicated testbed environment, which automatically processes every request as a test — no per-request opt-in is required
