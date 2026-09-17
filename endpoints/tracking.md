@@ -10,7 +10,7 @@
 
 - [Overview](#overview)
   - [How It Works](#how-it-works)
-  - [Prerequisite: Retrieve Shipped Orders First](#prerequisite-retrieve-shipped-orders-first)
+  - [Orders Without a Shipment Record](#orders-without-a-shipment-record)
   - [Support](#support)
 - [Authentication](#authentication)
 - [Method: POST](#method-post)
@@ -28,7 +28,7 @@ The Tracking API is a private REST interface for approved Richard partners to lo
 
 ### How It Works
 
-1. After an order ships, you retrieve the shipment details from the [`/shipped`](shipped.md) endpoint. Doing so records the carrier and tracking number against the order inside Richard's system.
+1. When an order ships, Richard records the carrier and tracking number against it. You can retrieve those shipment details yourself from the [`/shipped`](shipped.md) endpoint, but that is not a prerequisite for tracking.
 2. When you want to check the status of a shipment, `POST` to `/tracking` with **only** the `richard_id`.
 3. Richard looks up the stored shipment for that order, resolves the carrier and tracking number itself, and queries the carrier on your behalf.
 4. The carrier's response is normalized into a single, carrier-agnostic schema and returned to you.
@@ -37,11 +37,13 @@ Responses are **cached for 5 minutes** on a per-partner, per-order basis. Repeat
 
 > :pushpin: The `/tracking` endpoint accepts **`POST` only**. `GET` requests are not supported.
 
-### Prerequisite: Retrieve Shipped Orders First
+### Orders Without a Shipment Record
 
-Tracking only works for orders Richard has a **shipment record** for. That record is created when you retrieve the order through the [`/shipped`](shipped.md) endpoint — that is where Richard captures the carrier and tracking number.
+Tracking only works for orders Richard has a **shipment record** for. Richard creates that record itself, on its own schedule, once the shipment is known — it is **not** created by anything you do.
 
-If you call `/tracking` for an order that has no shipment record yet (e.g. it has not shipped, or you have never pulled it from `/shipped`), the request fails with `422` — see the [Error Reference](#error-reference). The fix is always the same: fetch the order from `/shipped` first, then retry.
+If you call `/tracking` for an order that has no shipment record yet, the request succeeds with `HTTP 200` and `"shipped": false`. The `tracking` and `tracking_number` fields are `null`, and `errors` is empty. This is a normal, temporary state, not an error: the order may not have shipped yet, or the shipment may not have been recorded yet.
+
+> :pushpin: **Always check `shipped` before reading `tracking`.** When `shipped` is `false`, `tracking` is `null`. Poll again later; the answer is never cached, so the next call reflects the current state. There is nothing you need to do to make the shipment record appear.
 
 In every case, the carrier and tracking number come from the stored shipment record, never from your request. In the [testbed](../TESTING.md), that record holds simulated data, so `/tracking` returns simulated tracking information.
 
@@ -90,7 +92,7 @@ _object_
 > :fire: **Why is only `richard_id` needed?**
 >
 > - `richard_id` identifies the order **and** verifies that **you own it** — the lookup is scoped to your partner account.
-> - The carrier and tracking number are resolved server-side from the shipment record Richard stored when you retrieved the order via [`/shipped`](shipped.md).
+> - The carrier and tracking number are resolved server-side from the shipment record Richard stores when the order ships.
 
 ---
 
@@ -98,7 +100,7 @@ _object_
 
 > :pushpin: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../RESPONSE.md).
 
-A successful response is always `HTTP 200`. The `cached` field indicates whether the result was served from cache (`true`) or freshly fetched from the carrier (`false`). The shape of `tracking` is identical in both cases.
+A successful response is always `HTTP 200`. The `shipped` field tells you whether Richard has a shipment record for the order — when it is `false`, `tracking` and `tracking_number` are `null`. The `cached` field indicates whether the result was served from cache (`true`) or freshly fetched from the carrier (`false`). The shape of `tracking` is identical in both cases.
 
 #### Payload
 
@@ -107,9 +109,10 @@ _object_
 | Field              |        Type        | Description                                                                               |
 | ------------------ | :----------------: | ----------------------------------------------------------------------------------------- |
 | `richard_id`       | _string_           | The `richard_id` you submitted in the request                                             |
-| `tracking_number`  | _string_           | The tracking number Richard looked up — resolved from the order's shipment record         |
+| `tracking_number`  | _string_\|_null_   | The tracking number Richard looked up — resolved from the order's shipment record. `null` when `shipped` is `false` |
+| `shipped`          | _boolean_          | `true` when Richard has a shipment record for the order; `false` when it does not yet     |
 | `cached`           | _boolean_          | `true` if the result was served from cache; `false` if freshly fetched from the carrier   |
-| `tracking`         | _object_           | Normalized tracking data — see structure below                                             |
+| `tracking`         | _object_\|_null_   | Normalized tracking data — see structure below. `null` when `shipped` is `false`           |
 | `errors`           | _array_<_string_>  | Error messages (empty on success)                                                         |
 
 #### `tracking` Object
@@ -177,6 +180,7 @@ The `status` field (both top-level and per-event) is always one of these values:
 {
   "richard_id": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
   "tracking_number": "9400111899220000000000",
+  "shipped": true,
   "cached": false,
   "tracking": {
     "tracking_number": "9400111899220000000000",
@@ -229,10 +233,26 @@ The `status` field (both top-level and per-event) is always one of these values:
 
 The response shape is identical — only `"cached": true` differs.
 
+#### Response Example — Order Not Shipped Yet
+
+When Richard has no shipment record for the order, the request still succeeds. Check `shipped` before reading `tracking`.
+
+```json
+{
+  "richard_id": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
+  "tracking_number": null,
+  "shipped": false,
+  "cached": false,
+  "tracking": null,
+  "errors": []
+}
+```
+
 ```json
 {
   "richard_id": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
   "tracking_number": "9400111899220000000000",
+  "shipped": true,
   "cached": true,
   "tracking": {
     "tracking_number": "9400111899220000000000",
@@ -281,6 +301,7 @@ By default the `raw` field is **omitted entirely** from the `tracking` object. T
 {
   "richard_id": "rpl-oae-ceb9fec4-a46c-4ead-99c2-1404b9ae82a6",
   "tracking_number": "9400111899220000000000",
+  "shipped": true,
   "cached": false,
   "tracking": {
     "tracking_number": "9400111899220000000000",
@@ -317,10 +338,11 @@ All non-system errors return `HTTP 200` with an `errors` array. System-level fai
 | `400`     | Bad Request                     | `richard_id` is missing, `with_raw` is not a boolean, the payload is empty, or the payload is not valid JSON  |
 | `401`     | Unauthorized                    | Missing, invalid, or expired JWT token; or your partner account is inactive                                   |
 | `404`     | Not Found                       | The order identified by `richard_id` does not exist, or it does not belong to your partner account           |
-| `422`     | Unprocessable Entity            | The order has no shipment record yet. Retrieve it via [`/shipped`](shipped.md) first, then retry.            |
 | `502`     | Bad Gateway                     | The tracking lookup could not be completed — Richard was unable to reach the carrier service, or the carrier returned an error. Retry after a short delay. |
 
 > :warning: **`502` responses are transient.** They indicate that the tracking lookup could not be completed at this time — typically because the carrier (or the carrier service) is temporarily unavailable, or the carrier could not resolve the tracking number. You should retry after a short delay. If the problem persists, contact api support.
+
+> :pushpin: **An order with no shipment record is no longer an error.** It previously returned `422`; it now returns `HTTP 200` with `"shipped": false`. See [Orders Without a Shipment Record](#orders-without-a-shipment-record).
 
 > :pushpin: Error messages are intended for human consumption and **should not be parsed programmatically**. Always use HTTP status codes and the presence/content of the `errors` array to drive your application logic.
 
