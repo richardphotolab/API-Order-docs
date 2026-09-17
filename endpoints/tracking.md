@@ -41,9 +41,9 @@ Responses are **cached for 5 minutes** on a per-partner, per-order basis. Repeat
 
 Tracking only works for orders Richard has a **shipment record** for. Richard creates that record itself, on its own schedule, once the shipment is known — it is **not** created by anything you do.
 
-If you call `/tracking` for an order that has no shipment record yet, the request succeeds with `HTTP 200` and `"shipped": false`. The `tracking` and `tracking_number` fields are `null`, and `errors` is empty. This is a normal, temporary state, not an error: the order may not have shipped yet, or the shipment may not have been recorded yet.
+If you call `/tracking` for an order that has no shipment record yet, the request succeeds with `HTTP 200` and `"shipped": false`. The `tracking` object is empty (`{}`), `tracking_number` is `null`, and `errors` is empty. This is a normal, temporary state, not an error: the order may not have shipped yet, or the shipment may not have been recorded yet.
 
-> :pushpin: **Always check `shipped` before reading `tracking`.** When `shipped` is `false`, `tracking` is `null`. Poll again later; the answer is never cached, so the next call reflects the current state. There is nothing you need to do to make the shipment record appear.
+> :pushpin: **Always check `shipped` before reading `tracking`.** When `shipped` is `false`, `tracking` is an empty object — every field you would normally read is absent. Poll again later; the answer is never cached, so the next call reflects the current state. There is nothing you need to do to make the shipment record appear.
 
 In every case, the carrier and tracking number come from the stored shipment record, never from your request. In the [testbed](../TESTING.md), that record holds simulated data, so `/tracking` returns simulated tracking information.
 
@@ -100,7 +100,7 @@ _object_
 
 > :pushpin: This information is specific to this endpoint. You must *_also_* understand the [basic RESPONSE documentation](../RESPONSE.md).
 
-A successful response is always `HTTP 200`. The `shipped` field tells you whether Richard has a shipment record for the order — when it is `false`, `tracking` and `tracking_number` are `null`. The `cached` field indicates whether the result was served from cache (`true`) or freshly fetched from the carrier (`false`). The shape of `tracking` is identical in both cases.
+A successful response is always `HTTP 200`. The `shipped` field tells you whether Richard has a shipment record for the order — when it is `false`, `tracking` is empty and `tracking_number` is `null`. The `cached` field indicates whether the result was served from cache (`true`) or freshly fetched from the carrier (`false`). The shape of `tracking` is identical in both cases.
 
 #### Payload
 
@@ -112,7 +112,7 @@ _object_
 | `tracking_number`  | _string_\|_null_   | The tracking number Richard looked up — resolved from the order's shipment record. `null` when `shipped` is `false` |
 | `shipped`          | _boolean_          | `true` when Richard has a shipment record for the order; `false` when it does not yet     |
 | `cached`           | _boolean_          | `true` if the result was served from cache; `false` if freshly fetched from the carrier   |
-| `tracking`         | _object_\|_null_   | Normalized tracking data — see structure below. `null` when `shipped` is `false`           |
+| `tracking`         | _object_           | Normalized tracking data — see structure below. Empty (`{}`) when `shipped` is `false`     |
 | `errors`           | _array_<_string_>  | Error messages (empty on success)                                                         |
 
 #### `tracking` Object
@@ -243,7 +243,7 @@ When Richard has no shipment record for the order, the request still succeeds. C
   "tracking_number": null,
   "shipped": false,
   "cached": false,
-  "tracking": null,
+  "tracking": {},
   "errors": []
 }
 ```

@@ -4,7 +4,7 @@
 
 # Documentation Changelog
 + Revisions 1.8 (2026/09/17)
-	- [`Tracking`](endpoints/tracking.md): an order with no shipment record now returns `HTTP 200` with `"shipped": false`, `tracking: null` and `tracking_number: null`, instead of `422`. It is a normal, temporary state, not an error
+	- [`Tracking`](endpoints/tracking.md): an order with no shipment record now returns `HTTP 200` with `"shipped": false`, an empty `tracking` object and `tracking_number: null`, instead of `422`. It is a normal, temporary state, not an error
 	- Added the `shipped` field to the `/tracking` response payload — check it before reading `tracking`
 	- Corrected the documented prerequisite: shipment records are created by Richard on its own schedule, **not** by retrieving the order from [`/shipped`](endpoints/shipped.md), so retrying after a `/shipped` call was never the fix
 + Revisions 1.7 (2026/07/01)
