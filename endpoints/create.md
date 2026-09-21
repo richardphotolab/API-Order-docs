@@ -53,6 +53,7 @@ _object_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`postalCode`                                               |     _string_      |   Yes    | max 16  | Shipping Postal Code            |                                                            |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`country`                                                  |     _string_      |   Yes    | max 50  | Shipping Country                |                                                            |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`phone`                                                    |     _integer_     |   Yes    | max 18  | Shipping Phone Number           |                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`email`                                                    |     _string_      |    No    | max 100 | Shipping Email                  | Optional; must be valid if a value is given                |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`shippingMethod`                                           |     _string_      |   Yes    | max 100  | Shipping Method                 |                                                            |
 | `items`                                                                                                    |      _array_      |   Yes    |    ~    | Items                           |                                                            |
 | &nbsp;&nbsp;&nbsp;&nbsp;_(recurring object)_                                                               |     _object_      |   Yes    |    ~    |                                 |                                                            |
@@ -99,6 +100,7 @@ _object_
         "postalCode": "11111",
         "country": "USA",
         "phone": 1111111111,
+        "email": "customer@example.com",
         "shippingMethod": "SPSSP"
       }
     },

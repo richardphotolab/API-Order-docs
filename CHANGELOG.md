@@ -3,6 +3,9 @@
 </p>
 
 # Documentation Changelog
++ Revisions 1.9 (2026/09/20)
+	- Added an optional `email` field to the `shipping` block on the [`Create`](endpoints/create.md) endpoint, passed through to the lab with the order
+	- The field may be omitted, left empty or sent as `null`; when supplied it must be a valid email address (max 100 characters)
 + Revisions 1.8 (2026/09/17)
 	- [`Tracking`](endpoints/tracking.md): an order with no shipment record now returns `HTTP 200` with `"shipped": false`, an empty `tracking` object and `tracking_number: null`, instead of `422`. It is a normal, temporary state, not an error
 	- Added the `shipped` field to the `/tracking` response payload — check it before reading `tracking`
