@@ -18,7 +18,7 @@ The Create API is a private REST interface for approved Richard partners to subm
 
 ### Support
 
-:point_right: Check out the [TESTING](TESTING.md) document for more information on testing your integration.
+:point_right: Check out the [TESTING](../TESTING.md) document for more information on testing your integration.
 
 For API support, please email api.support@richardphotolab.com
 
